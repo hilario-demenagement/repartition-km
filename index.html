@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Répartition km — Hilario Déménagement</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0F0F0F;
+    --surface:   #161616;
+    --border:    #2A2A2A;
+    --border-hi: #3A3A3A;
+    --text:      #F0EEE8;
+    --muted:     #666;
+    --accent:    #E8D5A3;
+    --blue:      #4A7CF7;
+    --green:     #2ECC71;
+    --orange:    #F39C12;
+    --red:       #E74C3C;
+    --purple:    #9B59B6;
+    --radius:    12px;
+    --mono:      'DM Mono', monospace;
+    --sans:      'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ─────────────────────────────────────────────────────────────── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(15,15,15,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+
+  .logo-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border-hi); }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0F0F0F;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* ── MAIN ───────────────────────────────────────────────────────────────── */
+  main {
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── KM INPUT HERO ──────────────────────────────────────────────────────── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card.primary {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, #1A1800 0%, #161616 60%);
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .hero-input-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .hero-input {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 140px;
+    caret-color: var(--accent);
+  }
+
+  .hero-unit {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--muted);
+  }
+
+  .hero-value {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 300;
+  }
+
+  .hero-value.green { color: var(--green); }
+  .hero-value.red   { color: var(--red); }
+  .hero-value.blue  { color: var(--blue); }
+
+  .hero-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: var(--mono);
+  }
+
+  /* ── GRID PRINCIPALE ────────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .grid-full { grid-column: 1 / -1; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── DONUT CHART ────────────────────────────────────────────────────────── */
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .donut-svg { flex-shrink: 0; }
+
+  .donut-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .legend-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .legend-name {
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .legend-pct {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .legend-chf {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    text-align: right;
+    min-width: 70px;
+  }
+
+  /* ── BARRES ─────────────────────────────────────────────────────────────── */
+  .bar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .bar-item {}
+
+  .bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .bar-name {
+    font-size: 12px;
+    color: var(--text);
+  }
+
+  .bar-right {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .bar-chf {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .bar-pct {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .bar-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── STACKED BAR ────────────────────────────────────────────────────────── */
+  .stacked-wrap { margin-top: 4px; }
+
+  .stacked-bar {
+    height: 28px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 14px;
+    gap: 2px;
+  }
+
+  .stacked-seg {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+  }
+
+  .stacked-labels {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .stacked-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .stacked-dot {
+    width: 8px; height: 8px;
+    border-radius: 2px;
+  }
+
+  /* ── METRICS ROW ────────────────────────────────────────────────────────── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .metric-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 4px;
+  }
+
+  .metric-sub {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  /* ── MANUTENTION GAUGE ──────────────────────────────────────────────────── */
+  .gauge-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .gauge-info { flex: 1; }
+
+  .gauge-big {
+    font-family: var(--mono);
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .gauge-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── MODAL PARAMÈTRES ───────────────────────────────────────────────────── */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border-hi);
+    border-radius: 16px;
+    width: 560px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px;
+    animation: slideUp 0.2s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(16px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px;
+    transition: color 0.15s;
+  }
+  .modal-close:hover { color: var(--text); }
+
+  .param-section {
+    margin-bottom: 24px;
+  }
+
+  .param-section-title {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .param-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .param-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .param-field.full { grid-column: 1 / -1; }
+
+  .param-label {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .param-input-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+
+  .param-input-wrap:focus-within {
+    border-color: var(--accent);
+  }
+
+  .param-input {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--accent);
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 12px;
+    flex: 1;
+    width: 0;
+  }
+
+  .param-unit {
+    font-size: 10px;
+    color: var(--muted);
+    padding: 0 10px 0 0;
+    font-family: var(--mono);
+    white-space: nowrap;
+  }
+
+  /* ── SCROLLBAR ──────────────────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
+
+  /* ── ANIMATIONS ─────────────────────────────────────────────────────────── */
+  .fade-in {
+    animation: fadeIn 0.4s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .number-transition {
+    transition: all 0.4s ease;
+  }
+
+  /* ── STATUS BADGE ───────────────────────────────────────────────────────── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  .status-green { background: rgba(46,204,113,0.15); color: var(--green); }
+  .status-red   { background: rgba(231,76,60,0.15);  color: var(--red); }
+
+  .dot-pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🚛</div>
+    <div>
+      <div class="logo-text">Hilario Déménagement</div>
+      <div class="logo-sub">Répartition kilométrique</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="resetParams()">↺ Réinitialiser</button>
+    <button class="btn btn-primary" onclick="openModal()">⚙ Paramètres</button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO : km + recettes + surplus -->
+  <div class="hero fade-in">
+    <div class="hero-card primary">
+      <div class="hero-label">Kilomètres du trajet</div>
+      <div class="hero-input-wrap">
+        <input class="hero-input" id="inp-km" type="number" value="100" min="1" oninput="calc()">
+        <span class="hero-unit">km</span>
+      </div>
+      <div class="hero-sub" id="hero-duration">— h — min de trajet estimé</div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-label">Recettes totales HT</div>
+      <div class="hero-input-wrap">
+        <span class="hero-value blue" id="hero-recettes">—</span>
+        <span class="hero-unit">CHF</span>
+      </div>
+      <div class="hero-sub" id="hero-tarif-info">— CHF/km facturé</div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-label">Surplus / Marge</div>
+      <div class="hero-input-wrap">
+        <span class="hero-value" id="hero-surplus">—</span>
+        <span class="hero-unit">CHF</span>
+      </div>
+      <div class="hero-sub" id="hero-surplus-pct">— % du tarif</div>
+    </div>
+  </div>
+
+  <!-- METRICS ROW -->
+  <div class="metrics-row fade-in" style="animation-delay:0.1s">
+    <div class="metric-card">
+      <div class="metric-label">Coût / km réel</div>
+      <div class="metric-value" id="m-cout-km" style="color:var(--red)">—</div>
+      <div class="metric-sub">vs <span id="m-tarif-km">—</span> facturé</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Main d'œuvre</div>
+      <div class="metric-value" id="m-mo" style="color:var(--blue)">—</div>
+      <div class="metric-sub"><span id="m-mo-pct">—</span> du tarif</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Coût véhicule</div>
+      <div class="metric-value" id="m-veh" style="color:var(--orange)">—</div>
+      <div class="metric-sub"><span id="m-veh-pct">—</span> du tarif</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Manutention couverte</div>
+      <div class="metric-value" id="m-manut" style="color:var(--green)">—</div>
+      <div class="metric-sub">heures absorbées</div>
+    </div>
+  </div>
+
+  <!-- ROW : Donut + Barres détail -->
+  <div class="grid fade-in" style="animation-delay:0.15s">
+
+    <div class="card">
+      <div class="card-title">Répartition</div>
+      <div class="donut-wrap">
+        <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
+          <circle id="d-bg"  cx="70" cy="70" r="54" fill="none" stroke="#2A2A2A" stroke-width="18"/>
+          <circle id="d-mo"  cx="70" cy="70" r="54" fill="none" stroke="#4A7CF7" stroke-width="18"
+                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+          <circle id="d-veh" cx="70" cy="70" r="54" fill="none" stroke="#F39C12" stroke-width="18"
+                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+          <circle id="d-ff"  cx="70" cy="70" r="54" fill="none" stroke="#9B59B6" stroke-width="18"
+                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+          <circle id="d-sur" cx="70" cy="70" r="54" fill="none" stroke="#2ECC71" stroke-width="18"
+                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
+                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+          <text x="70" y="65" text-anchor="middle" fill="#F0EEE8"
+                font-family="DM Mono" font-size="11" font-weight="300">SURPLUS</text>
+          <text id="donut-center" x="70" y="82" text-anchor="middle" fill="#2ECC71"
+                font-family="DM Mono" font-size="16" font-weight="500">—%</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--blue)"></div>
+              <span class="legend-name">Main d'œuvre</span>
+            </div>
+            <span class="legend-pct" id="leg-mo-pct">—%</span>
+            <span class="legend-chf" id="leg-mo-chf">— CHF</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--orange)"></div>
+              <span class="legend-name">Véhicule</span>
+            </div>
+            <span class="legend-pct" id="leg-veh-pct">—%</span>
+            <span class="legend-chf" id="leg-veh-chf">— CHF</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--purple)"></div>
+              <span class="legend-name">Frais fixes</span>
+            </div>
+            <span class="legend-pct" id="leg-ff-pct">—%</span>
+            <span class="legend-chf" id="leg-ff-chf">— CHF</span>
+          </div>
+          <div class="legend-item" style="padding-top:8px; border-top:1px solid var(--border)">
+            <div class="legend-left">
+              <div class="legend-dot" style="background:var(--green)"></div>
+              <span class="legend-name" style="font-weight:500">Surplus</span>
+            </div>
+            <span class="legend-pct" id="leg-sur-pct">—%</span>
+            <span class="legend-chf" id="leg-sur-chf" style="color:var(--green)">— CHF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Détail des coûts</div>
+      <div class="bar-list" id="bar-list"></div>
+    </div>
+
+  </div>
+
+  <!-- BARRE EMPILÉE -->
+  <div class="card grid-full fade-in" style="animation-delay:0.2s; margin-bottom:16px">
+    <div class="card-title">Composition du tarif au km</div>
+    <div class="stacked-wrap">
+      <div class="stacked-bar" id="stacked-bar"></div>
+      <div class="stacked-labels">
+        <div class="stacked-label"><div class="stacked-dot" style="background:var(--blue)"></div>Main d'œuvre</div>
+        <div class="stacked-label"><div class="stacked-dot" style="background:var(--orange)"></div>Véhicule</div>
+        <div class="stacked-label"><div class="stacked-dot" style="background:var(--purple)"></div>Frais fixes</div>
+        <div class="stacked-label"><div class="stacked-dot" style="background:var(--green)"></div>Surplus</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANUTENTION + STATUS -->
+  <div class="grid fade-in" style="animation-delay:0.25s">
+
+    <div class="card">
+      <div class="card-title">Manutention absorbée</div>
+      <div class="gauge-wrap">
+        <div>
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#2A2A2A" stroke-width="8"/>
+            <circle id="gauge-arc" cx="50" cy="50" r="40" fill="none" stroke="#2ECC71" stroke-width="8"
+                    stroke-dasharray="251.3" stroke-dashoffset="251.3"
+                    stroke-linecap="round" transform="rotate(-90 50 50)"
+                    style="transition:stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1)"/>
+            <text x="50" y="45" text-anchor="middle" fill="#2ECC71"
+                  font-family="DM Mono" font-size="14" font-weight="500" id="gauge-text">—</text>
+            <text x="50" y="60" text-anchor="middle" fill="#666"
+                  font-family="DM Sans" font-size="8">heures</text>
+          </svg>
+        </div>
+        <div class="gauge-info">
+          <div class="gauge-desc" id="manut-desc">
+            Le surplus de <strong id="manut-surplus">—</strong> CHF<br>
+            couvre environ <strong id="manut-h" style="color:var(--green)">—</strong> h de manutention<br>
+            pour une équipe de <strong id="manut-nb">—</strong> pers.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Statut du chantier</div>
+      <div style="display:flex; flex-direction:column; gap:16px">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <span style="font-size:13px">Rentabilité</span>
+          <span class="status-badge" id="status-badge">
+            <div class="dot-pulse"></div>
+            <span id="status-text">—</span>
+          </span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <span style="font-size:12px; color:var(--muted)">Tarif minimum conseillé</span>
+          <span style="font-family:var(--mono); font-size:12px" id="status-min-tarif">—</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <span style="font-size:12px; color:var(--muted)">Marge sur coût réel</span>
+          <span style="font-family:var(--mono); font-size:12px; color:var(--green)" id="status-marge">—</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <span style="font-size:12px; color:var(--muted)">Coût par km</span>
+          <span style="font-family:var(--mono); font-size:12px" id="status-cout-km">—</span>
+        </div>
+        <div style="height:1px; background:var(--border)"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <span style="font-size:12px; color:var(--muted)">Durée estimée du trajet</span>
+          <span style="font-family:var(--mono); font-size:12px" id="status-duree">—</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- MODAL PARAMÈTRES -->
+<div class="overlay" id="overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Paramètres</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">Équipe & tarification</div>
+      <div class="param-grid">
+        <div class="param-field">
+          <label class="param-label">Tarif facturé au km</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-tarif" type="number" value="2.20" step="0.05" oninput="calc()">
+            <span class="param-unit">CHF/km</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Nombre de déménageurs</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-nb" type="number" value="2" min="1" max="10" oninput="calc()">
+            <span class="param-unit">pers.</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Coût horaire / personne</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-cout" type="number" value="40" oninput="calc()">
+            <span class="param-unit">CHF/h</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Vitesse moyenne</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-vit" type="number" value="85" min="30" max="120" oninput="calc()">
+            <span class="param-unit">km/h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">Carburant</div>
+      <div class="param-grid">
+        <div class="param-field">
+          <label class="param-label">Consommation</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-conso" type="number" value="10" step="0.5" oninput="calc()">
+            <span class="param-unit">L/100km</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Prix carburant</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-prix-c" type="number" value="2.00" step="0.05" oninput="calc()">
+            <span class="param-unit">CHF/L</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">Véhicule</div>
+      <div class="param-grid">
+        <div class="param-field">
+          <label class="param-label">Valeur d'achat camion</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-cam" type="number" value="16400" oninput="calc()">
+            <span class="param-unit">CHF</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Durée amortissement</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-amort" type="number" value="3" min="1" max="15" oninput="calc()">
+            <span class="param-unit">ans</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Km annuels estimés</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-km-an" type="number" value="50000" oninput="calc()">
+            <span class="param-unit">km/an</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Assurance annuelle</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-assur" type="number" value="3000" oninput="calc()">
+            <span class="param-unit">CHF/an</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Vignette annuelle</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-vign" type="number" value="40" oninput="calc()">
+            <span class="param-unit">CHF/an</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Entretien annuel</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-entr" type="number" value="1500" oninput="calc()">
+            <span class="param-unit">CHF/an</span>
+          </div>
+        </div>
+        <div class="param-field full">
+          <label class="param-label">Location camion (si loué — sinon 0)</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-loc" type="number" value="0" oninput="calc()">
+            <span class="param-unit">CHF total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">Frais fixes</div>
+      <div class="param-grid">
+        <div class="param-field">
+          <label class="param-label">RC professionnelle</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-rc" type="number" value="355" oninput="calc()">
+            <span class="param-unit">CHF/an</span>
+          </div>
+        </div>
+        <div class="param-field">
+          <label class="param-label">Téléphone</label>
+          <div class="param-input-wrap">
+            <input class="param-input" id="p-tel" type="number" value="35" oninput="calc()">
+            <span class="param-unit">CHF/mois</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%; justify-content:center; padding:14px"
+            onclick="closeModal()">Appliquer ✓</button>
+  </div>
+</div>
+
+<script>
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const fmt  = (n, dec=2) => n.toLocaleString('fr-CH', {minimumFractionDigits:dec, maximumFractionDigits:dec});
+const fmtH = h => {
+  const hrs = Math.floor(h);
+  const min = Math.round((h - hrs) * 60);
+  return hrs > 0 ? `${hrs}h${min > 0 ? String(min).padStart(2,'0') : ''}` : `${min}min`;
+};
+
+function get(id) { return parseFloat($(id).value) || 0; }
+
+// ── DEFAULTS ──────────────────────────────────────────────────────────────────
+const DEFAULTS = {
+  'inp-km':0, 'p-tarif':2.20,'p-nb':2,'p-cout':40,'p-vit':85,
+  'p-conso':10,'p-prix-c':2.00,'p-cam':16400,'p-amort':3,'p-km-an':50000,
+  'p-assur':3000,'p-vign':40,'p-entr':1500,'p-loc':0,'p-rc':355,'p-tel':35
+};
+
+// ── CALCUL PRINCIPAL ──────────────────────────────────────────────────────────
+function calc() {
+  const km     = get('inp-km');
+  const tarif  = get('p-tarif');
+  const nb     = get('p-nb');
+  const cout   = get('p-cout');
+  const vit    = get('p-vit');
+  const conso  = get('p-conso');
+  const prixC  = get('p-prix-c');
+  const cam    = get('p-cam');
+  const amort  = get('p-amort');
+  const kmAn   = get('p-km-an');
+  const assur  = get('p-assur');
+  const vign   = get('p-vign');
+  const entr   = get('p-entr');
+  const loc    = get('p-loc');
+  const rc     = get('p-rc');
+  const tel    = get('p-tel');
+
+  const rec    = km * tarif;
+  const dur    = vit > 0 ? km / vit : 0;
+
+  // Coûts
+  const cMo    = nb * cout * dur;
+  const cCarb  = km * (conso/100) * prixC;
+  const cAmort = kmAn > 0 && amort > 0 ? km * (cam / (amort * kmAn)) : 0;
+  const cAssur = kmAn > 0 ? km * (assur / kmAn) : 0;
+  const cVign  = kmAn > 0 ? km * (vign / kmAn) : 0;
+  const cEntr  = kmAn > 0 ? km * (entr / kmAn) : 0;
+  const cLoc   = loc;
+  const cVeh   = cCarb + cAmort + cAssur + cVign + cEntr + cLoc;
+  const cRc    = kmAn > 0 ? km * (rc / kmAn) : 0;
+  const cTel   = kmAn > 0 ? km * ((tel*12) / kmAn) : 0;
+  const cFf    = cRc + cTel;
+  const cTot   = cMo + cVeh + cFf;
+  const surplus= rec - cTot;
+  const coutKm = km > 0 ? cTot / km : 0;
+  const manut  = nb * cout > 0 ? surplus / (nb * cout) : 0;
+
+  const pMo    = rec > 0 ? cMo / rec : 0;
+  const pVeh   = rec > 0 ? cVeh / rec : 0;
+  const pFf    = rec > 0 ? cFf / rec : 0;
+  const pSur   = rec > 0 ? surplus / rec : 0;
+
+  // ── Hero ──────────────────────────────────────────────────────────────────
+  $('hero-duration').textContent = dur > 0 ? `${fmtH(dur)} de trajet estimé` : '—';
+  $('hero-recettes').textContent = rec > 0 ? fmt(rec) : '—';
+  $('hero-tarif-info').textContent = `${fmt(tarif)} CHF/km facturé`;
+
+  const surpEl = $('hero-surplus');
+  surpEl.textContent = rec > 0 ? fmt(surplus) : '—';
+  surpEl.className = 'hero-value ' + (surplus >= 0 ? 'green' : 'red');
+  $('hero-surplus-pct').textContent = rec > 0 ? `${fmt(pSur*100, 1)}% du tarif` : '—';
+
+  // ── Metrics ───────────────────────────────────────────────────────────────
+  $('m-cout-km').textContent  = rec > 0 ? fmt(coutKm) + ' CHF' : '—';
+  $('m-tarif-km').textContent = fmt(tarif) + ' CHF/km';
+  $('m-mo').textContent       = rec > 0 ? fmt(cMo) + ' CHF' : '—';
+  $('m-mo-pct').textContent   = rec > 0 ? fmt(pMo*100,1) + '%' : '—';
+  $('m-veh').textContent      = rec > 0 ? fmt(cVeh) + ' CHF' : '—';
+  $('m-veh-pct').textContent  = rec > 0 ? fmt(pVeh*100,1) + '%' : '—';
+  $('m-manut').textContent    = rec > 0 ? fmtH(Math.max(0,manut)) : '—';
+
+  // ── Donut ─────────────────────────────────────────────────────────────────
+  const circ = 339.3;
+  if (rec > 0) {
+    const sMo  = pMo  * circ;
+    const sVeh = pVeh * circ;
+    const sFf  = pFf  * circ;
+    const sSur = Math.max(0, pSur) * circ;
+
+    // MO : commence à 0
+    $('d-mo').style.strokeDasharray  = `${sMo} ${circ - sMo}`;
+    $('d-mo').style.strokeDashoffset = '0';
+
+    // VEH : offset après MO
+    $('d-veh').style.strokeDasharray  = `${sVeh} ${circ - sVeh}`;
+    $('d-veh').style.strokeDashoffset = `${circ - sMo}`;
+
+    // FF : offset après MO + VEH
+    $('d-ff').style.strokeDasharray  = `${sFf} ${circ - sFf}`;
+    $('d-ff').style.strokeDashoffset = `${circ - sMo - sVeh}`;
+
+    // SUR : offset après MO + VEH + FF
+    $('d-sur').style.strokeDasharray  = `${sSur} ${circ - sSur}`;
+    $('d-sur').style.strokeDashoffset = `${circ - sMo - sVeh - sFf}`;
+
+    $('donut-center').textContent = fmt(Math.max(0,pSur)*100,0) + '%';
+    $('donut-center').style.fill  = surplus >= 0 ? '#2ECC71' : '#E74C3C';
+  }
+
+  // ── Légende donut ─────────────────────────────────────────────────────────
+  const f = (v,p) => rec > 0 ? `${fmt(v)} CHF` : '—';
+  const fp = p => rec > 0 ? `${fmt(p*100,1)}%` : '—';
+
+  $('leg-mo-pct').textContent  = fp(pMo);  $('leg-mo-chf').textContent  = f(cMo,pMo);
+  $('leg-veh-pct').textContent = fp(pVeh); $('leg-veh-chf').textContent = f(cVeh,pVeh);
+  $('leg-ff-pct').textContent  = fp(pFf);  $('leg-ff-chf').textContent  = f(cFf,pFf);
+  $('leg-sur-pct').textContent = fp(Math.max(0,pSur));
+  $('leg-sur-chf').textContent = rec > 0 ? fmt(Math.max(0,surplus)) + ' CHF' : '—';
+  $('leg-sur-chf').style.color = surplus >= 0 ? 'var(--green)' : 'var(--red)';
+
+  // ── Barres détail ─────────────────────────────────────────────────────────
+  const items = [
+    { name:'Main d\'œuvre',    v:cMo,   c:'#4A7CF7', note:`${nb} pers. × ${fmt(cout)} CHF/h × ${fmtH(dur)}` },
+    { name:'Carburant',        v:cCarb, c:'#F39C12', note:`${conso}L/100km × ${fmt(prixC)} CHF/L` },
+    { name:'Amortissement',    v:cAmort,c:'#E67E22', note:`CHF ${fmt(cam,0)} ÷ ${amort} ans ÷ ${fmt(kmAn,0)} km` },
+    { name:'Assurance',        v:cAssur,c:'#D35400', note:`CHF ${fmt(assur,0)}/an ÷ ${fmt(kmAn,0)} km` },
+    { name:'Vignette',         v:cVign, c:'#CA6F1E', note:`CHF ${fmt(vign,0)}/an` },
+    { name:'Entretien & usure',v:cEntr, c:'#BA4A00', note:`CHF ${fmt(entr,0)}/an estimé` },
+    { name:'RC pro',           v:cRc,   c:'#9B59B6', note:`CHF ${fmt(rc,0)}/an` },
+    { name:'Téléphone',        v:cTel,  c:'#8E44AD', note:`CHF ${fmt(tel,0)}/mois` },
+  ];
+  if (loc > 0) items.splice(1, 0, { name:'Location camion', v:cLoc, c:'#E8D5A3', note:'Coût total location' });
+
+  const maxV = Math.max(...items.map(i => i.v), 1);
+  const bl = $('bar-list');
+  bl.innerHTML = items.filter(i => i.v > 0).map(i => `
+    <div class="bar-item">
+      <div class="bar-header">
+        <span class="bar-name">${i.name}</span>
+        <div class="bar-right">
+          <span class="bar-chf">${rec > 0 ? fmt(i.v) + ' CHF' : '—'}</span>
+          <span class="bar-pct">${rec > 0 ? fmt(i.v/rec*100,1) + '%' : ''}</span>
+        </div>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${rec>0?i.v/maxV*100:0}%; background:${i.c}"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // ── Stacked bar ───────────────────────────────────────────────────────────
+  const sb = $('stacked-bar');
+  const pSurPos = Math.max(0, pSur);
+  sb.innerHTML = rec > 0 ? `
+    <div class="stacked-seg" style="width:${pMo*100}%; background:#4A7CF7">${pMo>0.08?fmt(pMo*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pVeh*100}%; background:#F39C12">${pVeh>0.08?fmt(pVeh*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pFf*100}%; background:#9B59B6">${pFf>0.06?fmt(pFf*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pSurPos*100}%; background:#2ECC71">${pSurPos>0.08?fmt(pSurPos*100,0)+'%':''}</div>
+  ` : '';
+
+  // ── Gauge manutention ─────────────────────────────────────────────────────
+  const manutH = Math.max(0, manut);
+  const maxH = 8;
+  const gaugeRatio = Math.min(manutH / maxH, 1);
+  const gaugeCirc = 251.3;
+  $('gauge-arc').style.strokeDashoffset = gaugeCirc * (1 - gaugeRatio);
+  $('gauge-arc').style.stroke = manutH > 2 ? '#2ECC71' : manutH > 1 ? '#F39C12' : '#E74C3C';
+  $('gauge-text').textContent = rec > 0 ? fmtH(manutH) : '—';
+  $('gauge-text').style.fill  = $('gauge-arc').style.stroke;
+
+  $('manut-surplus').textContent = rec > 0 ? fmt(Math.max(0,surplus)) : '—';
+  $('manut-h').textContent       = rec > 0 ? fmtH(manutH) : '—';
+  $('manut-nb').textContent      = nb;
+
+  // ── Status ────────────────────────────────────────────────────────────────
+  const badge = $('status-badge');
+  const stext = $('status-text');
+  if (rec > 0) {
+    if (surplus >= 0) {
+      badge.className = 'status-badge status-green';
+      stext.textContent = 'Rentable';
+    } else {
+      badge.className = 'status-badge status-red';
+      stext.textContent = 'Déficitaire';
+    }
+  }
+
+  const minTarif = km > 0 ? cTot / km : 0;
+  $('status-min-tarif').textContent = rec > 0 ? fmt(minTarif) + ' CHF/km' : '—';
+  $('status-marge').textContent     = rec > 0 && cTot > 0 ? '+' + fmt((surplus/cTot)*100,1) + '%' : '—';
+  $('status-cout-km').textContent   = rec > 0 ? fmt(coutKm) + ' CHF' : '—';
+  $('status-duree').textContent     = dur > 0 ? fmtH(dur) : '—';
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function openModal()  { $('overlay').classList.add('open'); }
+function closeModal() { $('overlay').classList.remove('open'); }
+function closeModalOutside(e) { if (e.target === $('overlay')) closeModal(); }
+
+function resetParams() {
+  Object.entries(DEFAULTS).forEach(([id, val]) => {
+    if ($(id)) $(id).value = val;
+  });
+  calc();
+}
+
+// Init
+calc();
+</script>
+</body>
+</html>
