@@ -6,1172 +6,817 @@
 <title>Répartition km — Hilario Déménagement</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg:        #0F0F0F;
-    --surface:   #161616;
-    --border:    #2A2A2A;
-    --border-hi: #3A3A3A;
-    --text:      #F0EEE8;
-    --muted:     #666;
-    --accent:    #E8D5A3;
-    --blue:      #4A7CF7;
-    --green:     #2ECC71;
-    --orange:    #F39C12;
-    --red:       #E74C3C;
-    --purple:    #9B59B6;
-    --radius:    12px;
-    --mono:      'DM Mono', monospace;
-    --sans:      'DM Sans', sans-serif;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── HEADER ─────────────────────────────────────────────────────────────── */
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 32px;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: rgba(15,15,15,0.92);
-    backdrop-filter: blur(12px);
-    z-index: 100;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .logo-icon {
-    width: 32px; height: 32px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-
-  .logo-text {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-    letter-spacing: 0.02em;
-  }
-
-  .logo-sub {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: var(--mono);
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .btn {
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.15s;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--muted);
-  }
-  .btn-ghost:hover { color: var(--text); border-color: var(--border-hi); }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #0F0F0F;
-    border-color: var(--accent);
-  }
-  .btn-primary:hover { opacity: 0.85; }
-
-  /* ── MAIN ───────────────────────────────────────────────────────────────── */
-  main {
-    padding: 32px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* ── KM INPUT HERO ──────────────────────────────────────────────────────── */
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .hero-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-card.primary {
-    border-color: var(--accent);
-    background: linear-gradient(135deg, #1A1800 0%, #161616 60%);
-  }
-
-  .hero-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-
-  .hero-input-wrap {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-
-  .hero-input {
-    font-family: var(--mono);
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--accent);
-    background: transparent;
-    border: none;
-    outline: none;
-    width: 140px;
-    caret-color: var(--accent);
-  }
-
-  .hero-unit {
-    font-family: var(--mono);
-    font-size: 16px;
-    color: var(--muted);
-  }
-
-  .hero-value {
-    font-family: var(--mono);
-    font-size: 36px;
-    font-weight: 300;
-  }
-
-  .hero-value.green { color: var(--green); }
-  .hero-value.red   { color: var(--red); }
-  .hero-value.blue  { color: var(--blue); }
-
-  .hero-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-    font-family: var(--mono);
-  }
-
-  /* ── GRID PRINCIPALE ────────────────────────────────────────────────────── */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .grid-full { grid-column: 1 / -1; }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-  }
-
-  .card-title {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .card-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── DONUT CHART ────────────────────────────────────────────────────────── */
-  .donut-wrap {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .donut-svg { flex-shrink: 0; }
-
-  .donut-legend {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .legend-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .legend-dot {
-    width: 8px; height: 8px;
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .legend-name {
-    font-size: 12px;
-    color: var(--text);
-  }
-
-  .legend-pct {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .legend-chf {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text);
-    text-align: right;
-    min-width: 70px;
-  }
-
-  /* ── BARRES ─────────────────────────────────────────────────────────────── */
-  .bar-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .bar-item {}
-
-  .bar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
-  }
-
-  .bar-name {
-    font-size: 12px;
-    color: var(--text);
-  }
-
-  .bar-right {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
-
-  .bar-chf {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .bar-pct {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    min-width: 36px;
-    text-align: right;
-  }
-
-  .bar-track {
-    height: 4px;
-    background: var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .bar-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* ── STACKED BAR ────────────────────────────────────────────────────────── */
-  .stacked-wrap { margin-top: 4px; }
-
-  .stacked-bar {
-    height: 28px;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    margin-bottom: 14px;
-    gap: 2px;
-  }
-
-  .stacked-seg {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.9);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: 0.05em;
-  }
-
-  .stacked-labels {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .stacked-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .stacked-dot {
-    width: 8px; height: 8px;
-    border-radius: 2px;
-  }
-
-  /* ── METRICS ROW ────────────────────────────────────────────────────────── */
-  .metrics-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .metric-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-  }
-
-  .metric-label {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-
-  .metric-value {
-    font-family: var(--mono);
-    font-size: 24px;
-    font-weight: 300;
-    margin-bottom: 4px;
-  }
-
-  .metric-sub {
-    font-size: 10px;
-    color: var(--muted);
-    font-family: var(--mono);
-  }
-
-  /* ── MANUTENTION GAUGE ──────────────────────────────────────────────────── */
-  .gauge-wrap {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .gauge-info { flex: 1; }
-
-  .gauge-big {
-    font-family: var(--mono);
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--green);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .gauge-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  /* ── MODAL PARAMÈTRES ───────────────────────────────────────────────────── */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px);
-    z-index: 200;
-    display: none;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .overlay.open { display: flex; }
-
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border-hi);
-    border-radius: 16px;
-    width: 560px;
-    max-height: 85vh;
-    overflow-y: auto;
-    padding: 32px;
-    animation: slideUp 0.2s ease;
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(16px); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
-  }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-  }
-
-  .modal-title {
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  .modal-close {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 20px;
-    padding: 4px;
-    transition: color 0.15s;
-  }
-  .modal-close:hover { color: var(--text); }
-
-  .param-section {
-    margin-bottom: 24px;
-  }
-
-  .param-section-title {
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .param-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .param-field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .param-field.full { grid-column: 1 / -1; }
-
-  .param-label {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .param-input-wrap {
-    display: flex;
-    align-items: center;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border-color 0.15s;
-  }
-
-  .param-input-wrap:focus-within {
-    border-color: var(--accent);
-  }
-
-  .param-input {
-    font-family: var(--mono);
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--accent);
-    background: transparent;
-    border: none;
-    outline: none;
-    padding: 10px 12px;
-    flex: 1;
-    width: 0;
-  }
-
-  .param-unit {
-    font-size: 10px;
-    color: var(--muted);
-    padding: 0 10px 0 0;
-    font-family: var(--mono);
-    white-space: nowrap;
-  }
-
-  /* ── SCROLLBAR ──────────────────────────────────────────────────────────── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 3px; }
-
-  /* ── ANIMATIONS ─────────────────────────────────────────────────────────── */
-  .fade-in {
-    animation: fadeIn 0.4s ease forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  .number-transition {
-    transition: all 0.4s ease;
-  }
-
-  /* ── STATUS BADGE ───────────────────────────────────────────────────────── */
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  .status-green { background: rgba(46,204,113,0.15); color: var(--green); }
-  .status-red   { background: rgba(231,76,60,0.15);  color: var(--red); }
-
-  .dot-pulse {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
+:root {
+  --bg:#0F0F0F;--surface:#161616;--border:#2A2A2A;--border-hi:#3A3A3A;
+  --text:#F0EEE8;--muted:#666;--accent:#E8D5A3;
+  --blue:#4A7CF7;--green:#2ECC71;--orange:#F39C12;--red:#E74C3C;--purple:#9B59B6;
+  --radius:12px;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);z-index:100;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.logo-text{font-size:13px;font-weight:500;}
+.logo-sub{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.header-right{display:flex;align-items:center;gap:8px;}
+
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all 0.15s;border:1px solid var(--border);display:flex;align-items:center;gap:5px;}
+.btn-ghost{background:transparent;color:var(--muted);}
+.btn-ghost:hover{color:var(--text);border-color:var(--border-hi);}
+.btn-accent{background:var(--accent);color:#0F0F0F;border-color:var(--accent);}
+.btn-accent:hover{opacity:0.85;}
+.btn-sm{padding:5px 10px;font-size:11px;}
+.btn-danger{background:rgba(231,76,60,0.15);color:var(--red);border-color:rgba(231,76,60,0.3);}
+.btn-danger:hover{background:rgba(231,76,60,0.25);}
+
+/* TABS */
+.tabs-wrap{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 28px;background:var(--surface);}
+.tab{font-size:12px;font-weight:500;padding:12px 18px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:6px;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans);}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--text);border-bottom-color:var(--accent);}
+.tab-badge{font-size:9px;font-weight:500;padding:2px 6px;border-radius:10px;background:var(--border);color:var(--muted);}
+.tab.active .tab-badge{background:rgba(232,213,163,0.2);color:var(--accent);}
+
+main{padding:24px 28px;max-width:1100px;margin:0 auto;}
+.page{display:none;}
+.page.active{display:block;}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
+.hero-card.gold{border-color:var(--accent);background:linear-gradient(135deg,#1A1400 0%,#161616 60%);}
+.hero-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.hero-val{font-family:var(--mono);font-size:28px;font-weight:300;}
+.hero-unit{font-family:var(--mono);font-size:13px;color:var(--muted);margin-left:4px;}
+.hero-sub{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--mono);}
+.hero-input{font-family:var(--mono);font-size:28px;font-weight:300;color:var(--accent);background:transparent;border:none;outline:none;width:130px;caret-color:var(--accent);}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.grid-full{grid-column:1/-1;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
+.card-title{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px;}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.metric-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.metric-val{font-family:var(--mono);font-size:20px;font-weight:300;}
+.metric-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
+
+/* BARS */
+.bar-list{display:flex;flex-direction:column;gap:12px;}
+.bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+.bar-name{font-size:12px;color:var(--text);}
+.bar-right{display:flex;align-items:baseline;gap:8px;}
+.bar-chf{font-family:var(--mono);font-size:12px;font-weight:500;}
+.bar-pct{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:34px;text-align:right;}
+.bar-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:24px;}
+.donut-legend{flex:1;display:flex;flex-direction:column;gap:8px;}
+.leg-item{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.leg-left{display:flex;align-items:center;gap:7px;}
+.leg-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0;}
+.leg-name{font-size:11px;}
+.leg-pct{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.leg-chf{font-family:var(--mono);font-size:11px;font-weight:500;min-width:68px;text-align:right;}
+
+/* STACKED */
+.stacked-bar{height:24px;border-radius:8px;overflow:hidden;display:flex;gap:2px;margin-bottom:12px;}
+.stacked-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:rgba(255,255,255,.9);transition:width 0.5s;overflow:hidden;white-space:nowrap;}
+.stacked-labels{display:flex;gap:14px;flex-wrap:wrap;}
+.sl{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);}
+.sl-dot{width:7px;height:7px;border-radius:2px;}
+
+/* STATUS */
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.s-green{background:rgba(46,204,113,.15);color:var(--green);}
+.s-red{background:rgba(231,76,60,.15);color:var(--red);}
+.s-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+
+/* GAUGE */
+.gauge-wrap{display:flex;align-items:center;gap:18px;}
+.gauge-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* STATUS ROWS */
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);}
+.stat-row:last-child{border-bottom:none;}
+.stat-label{font-size:12px;color:var(--muted);}
+.stat-val{font-family:var(--mono);font-size:12px;}
+
+/* POST-CHANTIER */
+.section-title{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.inp{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:var(--mono);font-size:13px;color:var(--accent);width:100%;outline:none;transition:border-color .15s;}
+.inp:focus{border-color:var(--accent);}
+.inp-unit{position:relative;}
+.inp-unit input{padding-right:40px;}
+.inp-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--muted);font-family:var(--mono);}
+
+/* COMPARAISON */
+.comp-table{width:100%;border-collapse:collapse;}
+.comp-table th{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;text-align:right;border-bottom:1px solid var(--border);}
+.comp-table th:first-child{text-align:left;}
+.comp-table td{font-size:12px;padding:9px 12px;border-bottom:0.5px solid var(--border);font-family:var(--mono);text-align:right;}
+.comp-table td:first-child{text-align:left;color:var(--text);font-family:var(--sans);font-size:12px;}
+.comp-table tr:last-child td{border-bottom:none;}
+.delta-pos{color:var(--green);}
+.delta-neg{color:var(--red);}
+.delta-neu{color:var(--muted);}
+.comp-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+.comp-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.comp-val{font-family:var(--mono);font-size:22px;font-weight:300;}
+.comp-sub{font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+
+/* HISTORIQUE */
+.history-list{display:flex;flex-direction:column;gap:8px;}
+.history-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;}
+.history-item:hover{border-color:var(--border-hi);}
+.history-item.complete{border-left:3px solid var(--green);}
+.history-item.draft{border-left:3px solid var(--orange);}
+.hi-left{display:flex;flex-direction:column;gap:3px;}
+.hi-name{font-size:13px;font-weight:500;}
+.hi-meta{font-size:11px;color:var(--muted);font-family:var(--mono);}
+.hi-right{display:flex;align-items:center;gap:12px;}
+.hi-surplus{font-family:var(--mono);font-size:13px;font-weight:500;}
+.hi-badge{font-size:10px;padding:2px 7px;border-radius:10px;}
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
+
+/* MODAL */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border-hi);border-radius:16px;width:500px;max-height:85vh;overflow-y:auto;padding:28px;animation:slideUp .2s ease;}
+@keyframes slideUp{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+.modal-title{font-size:15px;font-weight:500;}
+.modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;}
+.modal-close:hover{color:var(--text);}
+.param-section{margin-bottom:20px;}
+.param-section-title{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.param-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.param-field{display:flex;flex-direction:column;gap:5px;}
+.param-field.full{grid-column:1/-1;}
+.param-label{font-size:11px;color:var(--muted);}
+.param-wrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .15s;}
+.param-wrap:focus-within{border-color:var(--accent);}
+.param-inp{font-family:var(--mono);font-size:13px;color:var(--accent);background:transparent;border:none;outline:none;padding:9px 10px;flex:1;width:0;}
+.param-unit{font-size:10px;color:var(--muted);padding:0 9px 0 0;font-family:var(--mono);white-space:nowrap;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:3px;}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">
     <div class="logo-icon">🚛</div>
-    <div>
-      <div class="logo-text">Hilario Déménagement</div>
-      <div class="logo-sub">Répartition kilométrique</div>
-    </div>
+    <div><div class="logo-text">Hilario Déménagement</div><div class="logo-sub">Répartition kilométrique</div></div>
   </div>
-  <div class="header-actions">
-    <button class="btn btn-ghost" onclick="resetParams()">↺ Réinitialiser</button>
-    <button class="btn btn-primary" onclick="openModal()">⚙ Paramètres</button>
+  <div class="header-right">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('historique')">📋 Historique (<span id="hist-count">0</span>)</button>
+    <button class="btn btn-ghost btn-sm" onclick="resetParams()">↺ Réinit.</button>
+    <button class="btn btn-accent btn-sm" onclick="openModal()">⚙ Paramètres</button>
   </div>
 </header>
 
-<!-- MAIN -->
+<div class="tabs-wrap">
+  <button class="tab active" onclick="showPage('estimation')" id="tab-estimation">
+    📐 Estimation <span class="tab-badge" id="badge-est">Avant</span>
+  </button>
+  <button class="tab" onclick="showPage('post')" id="tab-post">
+    ✅ Post-chantier <span class="tab-badge" id="badge-post">Après</span>
+  </button>
+  <button class="tab" onclick="showPage('comparaison')" id="tab-comp">
+    ⚖ Comparaison <span class="tab-badge" id="badge-comp">Résultat</span>
+  </button>
+  <button class="tab" onclick="showPage('historique')" id="tab-hist">
+    📋 Historique <span class="tab-badge" id="badge-hist">0</span>
+  </button>
+</div>
+
 <main>
 
-  <!-- HERO : km + recettes + surplus -->
-  <div class="hero fade-in">
-    <div class="hero-card primary">
+<!-- ══ PAGE ESTIMATION ══════════════════════════════════════════════════════ -->
+<div class="page active" id="page-estimation">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Nom du chantier</div>
+      <input id="chantier-nom" class="inp" style="width:280px;font-family:var(--sans);font-size:13px;" placeholder="Ex. Evilard → Annecy" oninput="updateBadges()">
+    </div>
+    <button class="btn btn-accent" onclick="saveChantier()">💾 Sauvegarder</button>
+  </div>
+
+  <div class="hero">
+    <div class="hero-card" style="border-color:var(--accent);background:linear-gradient(135deg,#1A1800 0%,#161616 60%);">
       <div class="hero-label">Kilomètres du trajet</div>
-      <div class="hero-input-wrap">
-        <input class="hero-input" id="inp-km" type="number" value="100" min="1" oninput="calc()">
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <input class="hero-input" id="inp-km" type="number" value="100" min="1" oninput="calcEst()">
         <span class="hero-unit">km</span>
       </div>
-      <div class="hero-sub" id="hero-duration">— h — min de trajet estimé</div>
+      <div class="hero-sub" id="hero-duration">—</div>
     </div>
-
     <div class="hero-card">
-      <div class="hero-label">Recettes totales HT</div>
-      <div class="hero-input-wrap">
-        <span class="hero-value blue" id="hero-recettes">—</span>
+      <div class="hero-label">Recettes HT</div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="hero-val" id="hero-rec" style="color:var(--blue)">—</span>
         <span class="hero-unit">CHF</span>
       </div>
-      <div class="hero-sub" id="hero-tarif-info">— CHF/km facturé</div>
+      <div class="hero-sub" id="hero-tarif-info">—</div>
     </div>
-
     <div class="hero-card">
       <div class="hero-label">Surplus / Marge</div>
-      <div class="hero-input-wrap">
-        <span class="hero-value" id="hero-surplus">—</span>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="hero-val" id="hero-surplus">—</span>
         <span class="hero-unit">CHF</span>
       </div>
-      <div class="hero-sub" id="hero-surplus-pct">— % du tarif</div>
+      <div class="hero-sub" id="hero-surplus-pct">—</div>
+    </div>
+    <div class="hero-card gold">
+      <div class="hero-label" style="color:var(--accent);">Total client TTC</div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span class="hero-val" id="hero-ttc" style="color:var(--accent);">—</span>
+        <span class="hero-unit">CHF</span>
+      </div>
+      <div class="hero-sub" id="hero-ttc-sub">TVA 8.1% incluse</div>
     </div>
   </div>
 
-  <!-- METRICS ROW -->
-  <div class="metrics-row fade-in" style="animation-delay:0.1s">
-    <div class="metric-card">
-      <div class="metric-label">Coût / km réel</div>
-      <div class="metric-value" id="m-cout-km" style="color:var(--red)">—</div>
-      <div class="metric-sub">vs <span id="m-tarif-km">—</span> facturé</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Main d'œuvre</div>
-      <div class="metric-value" id="m-mo" style="color:var(--blue)">—</div>
-      <div class="metric-sub"><span id="m-mo-pct">—</span> du tarif</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Coût véhicule</div>
-      <div class="metric-value" id="m-veh" style="color:var(--orange)">—</div>
-      <div class="metric-sub"><span id="m-veh-pct">—</span> du tarif</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Manutention couverte</div>
-      <div class="metric-value" id="m-manut" style="color:var(--green)">—</div>
-      <div class="metric-sub">heures absorbées</div>
-    </div>
+  <div class="metrics">
+    <div class="metric"><div class="metric-label">Coût / km réel</div><div class="metric-val" id="m-cout-km" style="color:var(--red)">—</div><div class="metric-sub" id="m-tarif-km">—</div></div>
+    <div class="metric"><div class="metric-label">Main d'œuvre</div><div class="metric-val" id="m-mo" style="color:var(--blue)">—</div><div class="metric-sub" id="m-mo-pct">—</div></div>
+    <div class="metric"><div class="metric-label">Coût véhicule</div><div class="metric-val" id="m-veh" style="color:var(--orange)">—</div><div class="metric-sub" id="m-veh-pct">—</div></div>
+    <div class="metric"><div class="metric-label">Manutention couverte</div><div class="metric-val" id="m-manut" style="color:var(--green)">—</div><div class="metric-sub">heures absorbées</div></div>
   </div>
 
-  <!-- ROW : Donut + Barres détail -->
-  <div class="grid fade-in" style="animation-delay:0.15s">
-
+  <div class="grid2">
     <div class="card">
       <div class="card-title">Répartition</div>
       <div class="donut-wrap">
-        <svg class="donut-svg" width="140" height="140" viewBox="0 0 140 140">
-          <circle id="d-bg"  cx="70" cy="70" r="54" fill="none" stroke="#2A2A2A" stroke-width="18"/>
-          <circle id="d-mo"  cx="70" cy="70" r="54" fill="none" stroke="#4A7CF7" stroke-width="18"
-                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
-                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-          <circle id="d-veh" cx="70" cy="70" r="54" fill="none" stroke="#F39C12" stroke-width="18"
-                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
-                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-          <circle id="d-ff"  cx="70" cy="70" r="54" fill="none" stroke="#9B59B6" stroke-width="18"
-                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
-                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-          <circle id="d-sur" cx="70" cy="70" r="54" fill="none" stroke="#2ECC71" stroke-width="18"
-                  stroke-dasharray="339.3" stroke-dashoffset="339.3"
-                  stroke-linecap="butt" transform="rotate(-90 70 70)" style="transition:all 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-          <text x="70" y="65" text-anchor="middle" fill="#F0EEE8"
-                font-family="DM Mono" font-size="11" font-weight="300">SURPLUS</text>
-          <text id="donut-center" x="70" y="82" text-anchor="middle" fill="#2ECC71"
-                font-family="DM Mono" font-size="16" font-weight="500">—%</text>
+        <svg width="130" height="130" viewBox="0 0 130 130">
+          <circle cx="65" cy="65" r="50" fill="none" stroke="#2A2A2A" stroke-width="16"/>
+          <circle id="d-mo" cx="65" cy="65" r="50" fill="none" stroke="#4A7CF7" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
+          <circle id="d-veh" cx="65" cy="65" r="50" fill="none" stroke="#F39C12" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
+          <circle id="d-ff" cx="65" cy="65" r="50" fill="none" stroke="#9B59B6" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
+          <circle id="d-sur" cx="65" cy="65" r="50" fill="none" stroke="#2ECC71" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
+          <text x="65" y="60" text-anchor="middle" fill="#888" font-family="DM Mono" font-size="10">SURPLUS</text>
+          <text id="donut-center" x="65" y="75" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="15">—%</text>
         </svg>
         <div class="donut-legend">
-          <div class="legend-item">
-            <div class="legend-left">
-              <div class="legend-dot" style="background:var(--blue)"></div>
-              <span class="legend-name">Main d'œuvre</span>
-            </div>
-            <span class="legend-pct" id="leg-mo-pct">—%</span>
-            <span class="legend-chf" id="leg-mo-chf">— CHF</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-left">
-              <div class="legend-dot" style="background:var(--orange)"></div>
-              <span class="legend-name">Véhicule</span>
-            </div>
-            <span class="legend-pct" id="leg-veh-pct">—%</span>
-            <span class="legend-chf" id="leg-veh-chf">— CHF</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-left">
-              <div class="legend-dot" style="background:var(--purple)"></div>
-              <span class="legend-name">Frais fixes</span>
-            </div>
-            <span class="legend-pct" id="leg-ff-pct">—%</span>
-            <span class="legend-chf" id="leg-ff-chf">— CHF</span>
-          </div>
-          <div class="legend-item" style="padding-top:8px; border-top:1px solid var(--border)">
-            <div class="legend-left">
-              <div class="legend-dot" style="background:var(--green)"></div>
-              <span class="legend-name" style="font-weight:500">Surplus</span>
-            </div>
-            <span class="legend-pct" id="leg-sur-pct">—%</span>
-            <span class="legend-chf" id="leg-sur-chf" style="color:var(--green)">— CHF</span>
-          </div>
+          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--blue)"></div><span class="leg-name">Main d'œuvre</span></div><span class="leg-pct" id="leg-mo-pct">—</span><span class="leg-chf" id="leg-mo-chf">—</span></div>
+          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--orange)"></div><span class="leg-name">Véhicule</span></div><span class="leg-pct" id="leg-veh-pct">—</span><span class="leg-chf" id="leg-veh-chf">—</span></div>
+          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--purple)"></div><span class="leg-name">Frais fixes</span></div><span class="leg-pct" id="leg-ff-pct">—</span><span class="leg-chf" id="leg-ff-chf">—</span></div>
+          <div class="leg-item" style="padding-top:6px;border-top:1px solid var(--border)"><div class="leg-left"><div class="leg-dot" style="background:var(--green)"></div><span class="leg-name" style="font-weight:500">Surplus</span></div><span class="leg-pct" id="leg-sur-pct">—</span><span class="leg-chf" id="leg-sur-chf" style="color:var(--green)">—</span></div>
         </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">Détail des coûts</div>
       <div class="bar-list" id="bar-list"></div>
     </div>
-
   </div>
 
-  <!-- BARRE EMPILÉE -->
-  <div class="card grid-full fade-in" style="animation-delay:0.2s; margin-bottom:16px">
+  <div class="card grid-full" style="margin-bottom:12px;">
     <div class="card-title">Composition du tarif au km</div>
-    <div class="stacked-wrap">
-      <div class="stacked-bar" id="stacked-bar"></div>
-      <div class="stacked-labels">
-        <div class="stacked-label"><div class="stacked-dot" style="background:var(--blue)"></div>Main d'œuvre</div>
-        <div class="stacked-label"><div class="stacked-dot" style="background:var(--orange)"></div>Véhicule</div>
-        <div class="stacked-label"><div class="stacked-dot" style="background:var(--purple)"></div>Frais fixes</div>
-        <div class="stacked-label"><div class="stacked-dot" style="background:var(--green)"></div>Surplus</div>
-      </div>
+    <div id="stacked-bar" class="stacked-bar"></div>
+    <div class="stacked-labels">
+      <div class="sl"><div class="sl-dot" style="background:var(--blue)"></div>Main d'œuvre</div>
+      <div class="sl"><div class="sl-dot" style="background:var(--orange)"></div>Véhicule</div>
+      <div class="sl"><div class="sl-dot" style="background:var(--purple)"></div>Frais fixes</div>
+      <div class="sl"><div class="sl-dot" style="background:var(--green)"></div>Surplus</div>
     </div>
   </div>
 
-  <!-- MANUTENTION + STATUS -->
-  <div class="grid fade-in" style="animation-delay:0.25s">
-
+  <div class="grid2">
     <div class="card">
       <div class="card-title">Manutention absorbée</div>
       <div class="gauge-wrap">
-        <div>
-          <svg width="100" height="100" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#2A2A2A" stroke-width="8"/>
-            <circle id="gauge-arc" cx="50" cy="50" r="40" fill="none" stroke="#2ECC71" stroke-width="8"
-                    stroke-dasharray="251.3" stroke-dashoffset="251.3"
-                    stroke-linecap="round" transform="rotate(-90 50 50)"
-                    style="transition:stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1)"/>
-            <text x="50" y="45" text-anchor="middle" fill="#2ECC71"
-                  font-family="DM Mono" font-size="14" font-weight="500" id="gauge-text">—</text>
-            <text x="50" y="60" text-anchor="middle" fill="#666"
-                  font-family="DM Sans" font-size="8">heures</text>
-          </svg>
+        <svg width="90" height="90" viewBox="0 0 90 90">
+          <circle cx="45" cy="45" r="36" fill="none" stroke="#2A2A2A" stroke-width="7"/>
+          <circle id="gauge-arc" cx="45" cy="45" r="36" fill="none" stroke="#2ECC71" stroke-width="7" stroke-dasharray="226.2" stroke-dashoffset="226.2" stroke-linecap="round" transform="rotate(-90 45 45)" style="transition:all .5s"/>
+          <text id="gauge-text" x="45" y="40" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="12" font-weight="500">—</text>
+          <text x="45" y="54" text-anchor="middle" fill="#666" font-family="DM Sans" font-size="8">heures</text>
+        </svg>
+        <div class="gauge-desc" id="manut-desc">—</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Statut</div>
+      <div class="stat-row"><span class="stat-label">Rentabilité</span><span id="status-badge" class="status-badge">—</span></div>
+      <div class="stat-row"><span class="stat-label">Tarif min. conseillé</span><span class="stat-val" id="s-min">—</span></div>
+      <div class="stat-row"><span class="stat-label">Marge sur coût réel</span><span class="stat-val" id="s-marge" style="color:var(--green)">—</span></div>
+      <div class="stat-row"><span class="stat-label">Coût par km</span><span class="stat-val" id="s-cout-km">—</span></div>
+      <div class="stat-row"><span class="stat-label">Durée estimée</span><span class="stat-val" id="s-duree">—</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ PAGE POST-CHANTIER ═══════════════════════════════════════════════════ -->
+<div class="page" id="page-post">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+    <div>
+      <div style="font-size:16px;font-weight:500;" id="post-titre">Post-chantier</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:2px;">Remplis les valeurs réelles après la prestation</div>
+    </div>
+    <button class="btn btn-accent" onclick="saveChantier()">💾 Sauvegarder</button>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="section-title">Équipe & durée réelle</div>
+      <div class="field">
+        <label>Heures totales travaillées (toute l'équipe)</label>
+        <div class="inp-unit"><input id="r-heures" class="inp" type="number" value="0" step="0.5" oninput="calcPost()"><span>h</span></div>
+      </div>
+      <div class="field">
+        <label>Nombre de déménageurs réels</label>
+        <div class="inp-unit"><input id="r-nb" class="inp" type="number" value="2" min="1" oninput="calcPost()"><span>pers.</span></div>
+      </div>
+      <div class="field">
+        <label>Coût horaire payé / personne</label>
+        <div class="inp-unit"><input id="r-cout-h" class="inp" type="number" value="40" oninput="calcPost()"><span>CHF/h</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Véhicule & frais réels</div>
+      <div class="field">
+        <label>Litres d'essence réellement consommés</label>
+        <div class="inp-unit"><input id="r-litres" class="inp" type="number" value="0" step="0.5" oninput="calcPost()"><span>L</span></div>
+      </div>
+      <div class="field">
+        <label>Prix du carburant payé</label>
+        <div class="inp-unit"><input id="r-prix-c" class="inp" type="number" value="2.00" step="0.05" oninput="calcPost()"><span>CHF/L</span></div>
+      </div>
+      <div class="field">
+        <label>Location camion (si applicable)</label>
+        <div class="inp-unit"><input id="r-loc" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Suppléments facturés</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Étages</label>
+          <div class="inp-unit"><input id="r-etages" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
         </div>
-        <div class="gauge-info">
-          <div class="gauge-desc" id="manut-desc">
-            Le surplus de <strong id="manut-surplus">—</strong> CHF<br>
-            couvre environ <strong id="manut-h" style="color:var(--green)">—</strong> h de manutention<br>
-            pour une équipe de <strong id="manut-nb">—</strong> pers.
-          </div>
+        <div class="field">
+          <label>Volume important</label>
+          <div class="inp-unit"><input id="r-volume" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Manutention prolongée</label>
+          <div class="inp-unit"><input id="r-manut" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
+        </div>
+        <div class="field">
+          <label>Autres suppléments</label>
+          <div class="inp-unit"><input id="r-autres" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">Statut du chantier</div>
-      <div style="display:flex; flex-direction:column; gap:16px">
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <span style="font-size:13px">Rentabilité</span>
-          <span class="status-badge" id="status-badge">
-            <div class="dot-pulse"></div>
-            <span id="status-text">—</span>
-          </span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <span style="font-size:12px; color:var(--muted)">Tarif minimum conseillé</span>
-          <span style="font-family:var(--mono); font-size:12px" id="status-min-tarif">—</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <span style="font-size:12px; color:var(--muted)">Marge sur coût réel</span>
-          <span style="font-family:var(--mono); font-size:12px; color:var(--green)" id="status-marge">—</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <span style="font-size:12px; color:var(--muted)">Coût par km</span>
-          <span style="font-family:var(--mono); font-size:12px" id="status-cout-km">—</span>
-        </div>
-        <div style="height:1px; background:var(--border)"></div>
-        <div style="display:flex; justify-content:space-between; align-items:center">
-          <span style="font-size:12px; color:var(--muted)">Durée estimée du trajet</span>
-          <span style="font-family:var(--mono); font-size:12px" id="status-duree">—</span>
-        </div>
+      <div class="section-title">Commercial</div>
+      <div class="field">
+        <label>Rabais accordé au client</label>
+        <div class="inp-unit"><input id="r-rabais" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
+      </div>
+      <div class="field">
+        <label>Kilomètres réellement parcourus</label>
+        <div class="inp-unit"><input id="r-km" class="inp" type="number" value="0" oninput="calcPost()"><span>km</span></div>
       </div>
     </div>
-
   </div>
+
+  <div class="metrics" style="margin-top:12px;">
+    <div class="metric"><div class="metric-label">Total facturé réel HT</div><div class="metric-val" id="r-total-ht" style="color:var(--blue)">—</div><div class="metric-sub">recettes + suppléments - rabais</div></div>
+    <div class="metric"><div class="metric-label">Total coûts réels</div><div class="metric-val" id="r-total-cout" style="color:var(--red)">—</div><div class="metric-sub">MO + carburant + location</div></div>
+    <div class="metric"><div class="metric-label">Bénéfice net réel</div><div class="metric-val" id="r-benef">—</div><div class="metric-sub">facturé - coûts</div></div>
+    <div class="metric"><div class="metric-label">Revenu horaire réel</div><div class="metric-val" id="r-revenu-h" style="color:var(--accent)">—</div><div class="metric-sub">bénéfice ÷ heures</div></div>
+  </div>
+
+</div>
+
+<!-- ══ PAGE COMPARAISON ══════════════════════════════════════════════════════ -->
+<div class="page" id="page-comparaison">
+
+  <div style="margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:500;" id="comp-titre">Comparaison Estimation vs Réalité</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Les écarts positifs (vert) = tu as fait mieux que prévu</div>
+  </div>
+
+  <div class="comp-hero">
+    <div class="comp-card">
+      <div class="comp-label">Écart sur les recettes</div>
+      <div class="comp-val" id="c-ecart-rec">—</div>
+      <div class="comp-sub" id="c-ecart-rec-sub">—</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-label">Écart sur les coûts</div>
+      <div class="comp-val" id="c-ecart-cout">—</div>
+      <div class="comp-sub" id="c-ecart-cout-sub">—</div>
+    </div>
+    <div class="comp-card" style="border-color:var(--accent)">
+      <div class="comp-label" style="color:var(--accent)">Écart bénéfice final</div>
+      <div class="comp-val" id="c-ecart-benef">—</div>
+      <div class="comp-sub" id="c-ecart-benef-sub">—</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <div class="card-title">Tableau comparatif détaillé</div>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="text-align:left">Poste</th>
+          <th>Estimation</th>
+          <th>Réalité</th>
+          <th>Écart CHF</th>
+          <th>Écart %</th>
+        </tr>
+      </thead>
+      <tbody id="comp-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">Verdict chantier</div>
+      <div id="verdict-content">
+        <div class="stat-row"><span class="stat-label">Statut global</span><span id="v-statut" class="status-badge">—</span></div>
+        <div class="stat-row"><span class="stat-label">Bénéfice estimé</span><span class="stat-val" id="v-benef-est">—</span></div>
+        <div class="stat-row"><span class="stat-label">Bénéfice réel</span><span class="stat-val" id="v-benef-reel">—</span></div>
+        <div class="stat-row"><span class="stat-label">Revenu horaire réel</span><span class="stat-val" id="v-rev-h" style="color:var(--accent)">—</span></div>
+        <div class="stat-row"><span class="stat-label">Km estimés / réels</span><span class="stat-val" id="v-km">—</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Leçons pour la suite</div>
+      <div id="lessons-content" style="font-size:12px;color:var(--muted);line-height:1.7;">—</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ PAGE HISTORIQUE ═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-historique">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:500;">Historique des chantiers</div>
+    <button class="btn btn-ghost btn-sm" onclick="newChantier()">+ Nouveau chantier</button>
+  </div>
+
+  <div class="history-list" id="history-list">
+    <div class="empty-state">Aucun chantier sauvegardé.<br>Commence par remplir l'estimation et clique sur "Sauvegarder".</div>
+  </div>
+
+</div>
 
 </main>
 
 <!-- MODAL PARAMÈTRES -->
-<div class="overlay" id="overlay" onclick="closeModalOutside(event)">
+<div class="overlay" id="overlay" onclick="closeModalOut(event)">
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title">Paramètres</div>
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-
     <div class="param-section">
       <div class="param-section-title">Équipe & tarification</div>
       <div class="param-grid">
-        <div class="param-field">
-          <label class="param-label">Tarif facturé au km</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-tarif" type="number" value="2.20" step="0.05" oninput="calc()">
-            <span class="param-unit">CHF/km</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Nombre de déménageurs</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-nb" type="number" value="2" min="1" max="10" oninput="calc()">
-            <span class="param-unit">pers.</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Coût horaire / personne</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-cout" type="number" value="40" oninput="calc()">
-            <span class="param-unit">CHF/h</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Vitesse moyenne</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-vit" type="number" value="85" min="30" max="120" oninput="calc()">
-            <span class="param-unit">km/h</span>
-          </div>
-        </div>
+        <div class="param-field"><label class="param-label">Tarif facturé au km</label><div class="param-wrap"><input class="param-inp" id="p-tarif" type="number" value="2.20" step="0.05" oninput="calcEst()"><span class="param-unit">CHF/km</span></div></div>
+        <div class="param-field"><label class="param-label">Nombre de déménageurs</label><div class="param-wrap"><input class="param-inp" id="p-nb" type="number" value="2" min="1" oninput="calcEst()"><span class="param-unit">pers.</span></div></div>
+        <div class="param-field"><label class="param-label">Coût horaire / personne</label><div class="param-wrap"><input class="param-inp" id="p-cout" type="number" value="40" oninput="calcEst()"><span class="param-unit">CHF/h</span></div></div>
+        <div class="param-field"><label class="param-label">Vitesse moyenne</label><div class="param-wrap"><input class="param-inp" id="p-vit" type="number" value="85" oninput="calcEst()"><span class="param-unit">km/h</span></div></div>
       </div>
     </div>
-
     <div class="param-section">
       <div class="param-section-title">Carburant</div>
       <div class="param-grid">
-        <div class="param-field">
-          <label class="param-label">Consommation</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-conso" type="number" value="10" step="0.5" oninput="calc()">
-            <span class="param-unit">L/100km</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Prix carburant</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-prix-c" type="number" value="2.00" step="0.05" oninput="calc()">
-            <span class="param-unit">CHF/L</span>
-          </div>
-        </div>
+        <div class="param-field"><label class="param-label">Consommation</label><div class="param-wrap"><input class="param-inp" id="p-conso" type="number" value="10" step="0.5" oninput="calcEst()"><span class="param-unit">L/100km</span></div></div>
+        <div class="param-field"><label class="param-label">Prix carburant</label><div class="param-wrap"><input class="param-inp" id="p-prix-c" type="number" value="2.00" step="0.05" oninput="calcEst()"><span class="param-unit">CHF/L</span></div></div>
       </div>
     </div>
-
     <div class="param-section">
       <div class="param-section-title">Véhicule</div>
       <div class="param-grid">
-        <div class="param-field">
-          <label class="param-label">Valeur d'achat camion</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-cam" type="number" value="16400" oninput="calc()">
-            <span class="param-unit">CHF</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Durée amortissement</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-amort" type="number" value="3" min="1" max="15" oninput="calc()">
-            <span class="param-unit">ans</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Km annuels estimés</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-km-an" type="number" value="50000" oninput="calc()">
-            <span class="param-unit">km/an</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Assurance annuelle</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-assur" type="number" value="3000" oninput="calc()">
-            <span class="param-unit">CHF/an</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Vignette annuelle</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-vign" type="number" value="40" oninput="calc()">
-            <span class="param-unit">CHF/an</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Entretien annuel</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-entr" type="number" value="1500" oninput="calc()">
-            <span class="param-unit">CHF/an</span>
-          </div>
-        </div>
-        <div class="param-field full">
-          <label class="param-label">Location camion (si loué — sinon 0)</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-loc" type="number" value="0" oninput="calc()">
-            <span class="param-unit">CHF total</span>
-          </div>
-        </div>
+        <div class="param-field"><label class="param-label">Valeur d'achat camion</label><div class="param-wrap"><input class="param-inp" id="p-cam" type="number" value="16400" oninput="calcEst()"><span class="param-unit">CHF</span></div></div>
+        <div class="param-field"><label class="param-label">Durée amortissement</label><div class="param-wrap"><input class="param-inp" id="p-amort" type="number" value="3" oninput="calcEst()"><span class="param-unit">ans</span></div></div>
+        <div class="param-field"><label class="param-label">Km annuels estimés</label><div class="param-wrap"><input class="param-inp" id="p-km-an" type="number" value="50000" oninput="calcEst()"><span class="param-unit">km/an</span></div></div>
+        <div class="param-field"><label class="param-label">Assurance annuelle</label><div class="param-wrap"><input class="param-inp" id="p-assur" type="number" value="3000" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
+        <div class="param-field"><label class="param-label">Vignette annuelle</label><div class="param-wrap"><input class="param-inp" id="p-vign" type="number" value="40" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
+        <div class="param-field"><label class="param-label">Entretien annuel</label><div class="param-wrap"><input class="param-inp" id="p-entr" type="number" value="1500" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
+        <div class="param-field full"><label class="param-label">Location camion (sinon 0)</label><div class="param-wrap"><input class="param-inp" id="p-loc" type="number" value="0" oninput="calcEst()"><span class="param-unit">CHF total</span></div></div>
       </div>
     </div>
-
     <div class="param-section">
       <div class="param-section-title">Frais fixes</div>
       <div class="param-grid">
-        <div class="param-field">
-          <label class="param-label">RC professionnelle</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-rc" type="number" value="355" oninput="calc()">
-            <span class="param-unit">CHF/an</span>
-          </div>
-        </div>
-        <div class="param-field">
-          <label class="param-label">Téléphone</label>
-          <div class="param-input-wrap">
-            <input class="param-input" id="p-tel" type="number" value="35" oninput="calc()">
-            <span class="param-unit">CHF/mois</span>
-          </div>
-        </div>
+        <div class="param-field"><label class="param-label">RC professionnelle</label><div class="param-wrap"><input class="param-inp" id="p-rc" type="number" value="355" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
+        <div class="param-field"><label class="param-label">Téléphone</label><div class="param-wrap"><input class="param-inp" id="p-tel" type="number" value="35" oninput="calcEst()"><span class="param-unit">CHF/mois</span></div></div>
       </div>
     </div>
-
-    <button class="btn btn-primary" style="width:100%; justify-content:center; padding:14px"
-            onclick="closeModal()">Appliquer ✓</button>
+    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:12px;" onclick="closeModal()">Appliquer ✓</button>
   </div>
 </div>
 
 <script>
-// ── HELPERS ───────────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
-const fmt  = (n, dec=2) => n.toLocaleString('fr-CH', {minimumFractionDigits:dec, maximumFractionDigits:dec});
-const fmtH = h => {
-  const hrs = Math.floor(h);
-  const min = Math.round((h - hrs) * 60);
-  return hrs > 0 ? `${hrs}h${min > 0 ? String(min).padStart(2,'0') : ''}` : `${min}min`;
-};
+const fmt = (n,d=2) => n.toLocaleString('fr-CH',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtH = h => { const hrs=Math.floor(h); const min=Math.round((h-hrs)*60); return hrs>0?`${hrs}h${min>0?String(min).padStart(2,'0'):''}min`:`${min}min`; };
+const get = id => parseFloat($(id).value)||0;
 
-function get(id) { return parseFloat($(id).value) || 0; }
+let currentData = { est:{}, post:{} };
+let chantiers = JSON.parse(localStorage.getItem('hilario-chantiers')||'[]');
 
-// ── DEFAULTS ──────────────────────────────────────────────────────────────────
-const DEFAULTS = {
-  'inp-km':0, 'p-tarif':2.20,'p-nb':2,'p-cout':40,'p-vit':85,
-  'p-conso':10,'p-prix-c':2.00,'p-cam':16400,'p-amort':3,'p-km-an':50000,
-  'p-assur':3000,'p-vign':40,'p-entr':1500,'p-loc':0,'p-rc':355,'p-tel':35
-};
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  $('page-'+name).classList.add('active');
+  $('tab-'+name).classList.add('active');
+  if(name==='comparaison') calcComp();
+  if(name==='historique') renderHistory();
+}
 
-// ── CALCUL PRINCIPAL ──────────────────────────────────────────────────────────
-function calc() {
-  const km     = get('inp-km');
-  const tarif  = get('p-tarif');
-  const nb     = get('p-nb');
-  const cout   = get('p-cout');
-  const vit    = get('p-vit');
-  const conso  = get('p-conso');
-  const prixC  = get('p-prix-c');
-  const cam    = get('p-cam');
-  const amort  = get('p-amort');
-  const kmAn   = get('p-km-an');
-  const assur  = get('p-assur');
-  const vign   = get('p-vign');
-  const entr   = get('p-entr');
-  const loc    = get('p-loc');
-  const rc     = get('p-rc');
-  const tel    = get('p-tel');
+function updateBadges() {
+  const nom = $('chantier-nom').value||'Sans nom';
+  $('post-titre').textContent = 'Post-chantier — ' + nom;
+  $('comp-titre').textContent = 'Comparaison — ' + nom;
+}
 
-  const rec    = km * tarif;
-  const dur    = vit > 0 ? km / vit : 0;
+// ── ESTIMATION ────────────────────────────────────────────────────────────────
+function calcEst() {
+  const km=get('inp-km'), tarif=get('p-tarif'), nb=get('p-nb'), cout=get('p-cout'), vit=get('p-vit');
+  const conso=get('p-conso'), prixC=get('p-prix-c'), cam=get('p-cam'), amort=get('p-amort');
+  const kmAn=get('p-km-an'), assur=get('p-assur'), vign=get('p-vign'), entr=get('p-entr');
+  const loc=get('p-loc'), rc=get('p-rc'), tel=get('p-tel');
 
-  // Coûts
-  const cMo    = nb * cout * dur;
-  const cCarb  = km * (conso/100) * prixC;
-  const cAmort = kmAn > 0 && amort > 0 ? km * (cam / (amort * kmAn)) : 0;
-  const cAssur = kmAn > 0 ? km * (assur / kmAn) : 0;
-  const cVign  = kmAn > 0 ? km * (vign / kmAn) : 0;
-  const cEntr  = kmAn > 0 ? km * (entr / kmAn) : 0;
-  const cLoc   = loc;
-  const cVeh   = cCarb + cAmort + cAssur + cVign + cEntr + cLoc;
-  const cRc    = kmAn > 0 ? km * (rc / kmAn) : 0;
-  const cTel   = kmAn > 0 ? km * ((tel*12) / kmAn) : 0;
-  const cFf    = cRc + cTel;
-  const cTot   = cMo + cVeh + cFf;
-  const surplus= rec - cTot;
-  const coutKm = km > 0 ? cTot / km : 0;
-  const manut  = nb * cout > 0 ? surplus / (nb * cout) : 0;
+  const rec=km*tarif, dur=vit>0?km/vit:0;
+  const cMo=nb*cout*dur, cCarb=km*(conso/100)*prixC;
+  const cAmort=kmAn>0&&amort>0?km*(cam/(amort*kmAn)):0;
+  const cAssur=kmAn>0?km*(assur/kmAn):0, cVign=kmAn>0?km*(vign/kmAn):0;
+  const cEntr=kmAn>0?km*(entr/kmAn):0, cLoc=loc;
+  const cVeh=cCarb+cAmort+cAssur+cVign+cEntr+cLoc;
+  const cRc=kmAn>0?km*(rc/kmAn):0, cTel=kmAn>0?km*((tel*12)/kmAn):0;
+  const cFf=cRc+cTel, cTot=cMo+cVeh+cFf, surplus=rec-cTot;
+  const ttc=rec*1.081, coutKm=km>0?cTot/km:0;
+  const pMo=rec>0?cMo/rec:0, pVeh=rec>0?cVeh/rec:0, pFf=rec>0?cFf/rec:0;
+  const pSur=rec>0?surplus/rec:0, manut=nb*cout>0?surplus/(nb*cout):0;
 
-  const pMo    = rec > 0 ? cMo / rec : 0;
-  const pVeh   = rec > 0 ? cVeh / rec : 0;
-  const pFf    = rec > 0 ? cFf / rec : 0;
-  const pSur   = rec > 0 ? surplus / rec : 0;
+  currentData.est = {rec,surplus,ttc,cTot,cMo,cVeh,cFf,km,dur,tarif,nb,cout,coutKm,manut,pMo,pVeh,pFf,pSur};
 
-  // ── Hero ──────────────────────────────────────────────────────────────────
-  $('hero-duration').textContent = dur > 0 ? `${fmtH(dur)} de trajet estimé` : '—';
-  $('hero-recettes').textContent = rec > 0 ? fmt(rec) : '—';
+  $('hero-duration').textContent = dur>0?`${fmtH(dur)} de trajet estimé`:'—';
+  $('hero-rec').textContent = rec>0?fmt(rec):'—';
   $('hero-tarif-info').textContent = `${fmt(tarif)} CHF/km facturé`;
+  const se=$('hero-surplus'); se.textContent=rec>0?fmt(surplus):'—';
+  se.style.color=surplus>=0?'var(--green)':'var(--red)';
+  $('hero-surplus-pct').textContent=rec>0?`${fmt(pSur*100,1)}% du tarif`:'—';
+  $('hero-ttc').textContent=rec>0?fmt(ttc):'—';
+  $('hero-ttc-sub').textContent=rec>0?`HT ${fmt(rec)} + TVA ${fmt(rec*0.081)}`:'TVA 8.1% incluse';
 
-  const surpEl = $('hero-surplus');
-  surpEl.textContent = rec > 0 ? fmt(surplus) : '—';
-  surpEl.className = 'hero-value ' + (surplus >= 0 ? 'green' : 'red');
-  $('hero-surplus-pct').textContent = rec > 0 ? `${fmt(pSur*100, 1)}% du tarif` : '—';
+  $('m-cout-km').textContent=rec>0?fmt(coutKm)+' CHF':'—';
+  $('m-tarif-km').textContent='vs '+fmt(tarif)+' facturé';
+  $('m-mo').textContent=rec>0?fmt(cMo)+' CHF':'—';
+  $('m-mo-pct').textContent=rec>0?fmt(pMo*100,1)+'%':'—';
+  $('m-veh').textContent=rec>0?fmt(cVeh)+' CHF':'—';
+  $('m-veh-pct').textContent=rec>0?fmt(pVeh*100,1)+'%':'—';
+  $('m-manut').textContent=rec>0?fmtH(Math.max(0,manut)):'—';
 
-  // ── Metrics ───────────────────────────────────────────────────────────────
-  $('m-cout-km').textContent  = rec > 0 ? fmt(coutKm) + ' CHF' : '—';
-  $('m-tarif-km').textContent = fmt(tarif) + ' CHF/km';
-  $('m-mo').textContent       = rec > 0 ? fmt(cMo) + ' CHF' : '—';
-  $('m-mo-pct').textContent   = rec > 0 ? fmt(pMo*100,1) + '%' : '—';
-  $('m-veh').textContent      = rec > 0 ? fmt(cVeh) + ' CHF' : '—';
-  $('m-veh-pct').textContent  = rec > 0 ? fmt(pVeh*100,1) + '%' : '—';
-  $('m-manut').textContent    = rec > 0 ? fmtH(Math.max(0,manut)) : '—';
-
-  // ── Donut ─────────────────────────────────────────────────────────────────
-  const circ = 339.3;
-  if (rec > 0) {
-    const sMo  = pMo  * circ;
-    const sVeh = pVeh * circ;
-    const sFf  = pFf  * circ;
-    const sSur = Math.max(0, pSur) * circ;
-
-    // MO : commence à 0
-    $('d-mo').style.strokeDasharray  = `${sMo} ${circ - sMo}`;
-    $('d-mo').style.strokeDashoffset = '0';
-
-    // VEH : offset après MO
-    $('d-veh').style.strokeDasharray  = `${sVeh} ${circ - sVeh}`;
-    $('d-veh').style.strokeDashoffset = `${circ - sMo}`;
-
-    // FF : offset après MO + VEH
-    $('d-ff').style.strokeDasharray  = `${sFf} ${circ - sFf}`;
-    $('d-ff').style.strokeDashoffset = `${circ - sMo - sVeh}`;
-
-    // SUR : offset après MO + VEH + FF
-    $('d-sur').style.strokeDasharray  = `${sSur} ${circ - sSur}`;
-    $('d-sur').style.strokeDashoffset = `${circ - sMo - sVeh - sFf}`;
-
-    $('donut-center').textContent = fmt(Math.max(0,pSur)*100,0) + '%';
-    $('donut-center').style.fill  = surplus >= 0 ? '#2ECC71' : '#E74C3C';
+  const C=314.2;
+  if(rec>0){
+    const sMo=pMo*C,sVeh=pVeh*C,sFf=pFf*C,sSur=Math.max(0,pSur)*C;
+    $('d-mo').style.strokeDasharray=`${sMo} ${C-sMo}`; $('d-mo').style.strokeDashoffset='0';
+    $('d-veh').style.strokeDasharray=`${sVeh} ${C-sVeh}`; $('d-veh').style.strokeDashoffset=`${C-sMo}`;
+    $('d-ff').style.strokeDasharray=`${sFf} ${C-sFf}`; $('d-ff').style.strokeDashoffset=`${C-sMo-sVeh}`;
+    $('d-sur').style.strokeDasharray=`${sSur} ${C-sSur}`; $('d-sur').style.strokeDashoffset=`${C-sMo-sVeh-sFf}`;
+    $('donut-center').textContent=fmt(Math.max(0,pSur)*100,0)+'%';
+    $('donut-center').style.fill=surplus>=0?'#2ECC71':'#E74C3C';
   }
 
-  // ── Légende donut ─────────────────────────────────────────────────────────
-  const f = (v,p) => rec > 0 ? `${fmt(v)} CHF` : '—';
-  const fp = p => rec > 0 ? `${fmt(p*100,1)}%` : '—';
+  const f=v=>rec>0?fmt(v)+' CHF':'—', fp=p=>rec>0?fmt(p*100,1)+'%':'—';
+  $('leg-mo-pct').textContent=fp(pMo); $('leg-mo-chf').textContent=f(cMo);
+  $('leg-veh-pct').textContent=fp(pVeh); $('leg-veh-chf').textContent=f(cVeh);
+  $('leg-ff-pct').textContent=fp(pFf); $('leg-ff-chf').textContent=f(cFf);
+  $('leg-sur-pct').textContent=fp(Math.max(0,pSur));
+  $('leg-sur-chf').textContent=rec>0?fmt(Math.max(0,surplus))+' CHF':'—';
+  $('leg-sur-chf').style.color=surplus>=0?'var(--green)':'var(--red)';
 
-  $('leg-mo-pct').textContent  = fp(pMo);  $('leg-mo-chf').textContent  = f(cMo,pMo);
-  $('leg-veh-pct').textContent = fp(pVeh); $('leg-veh-chf').textContent = f(cVeh,pVeh);
-  $('leg-ff-pct').textContent  = fp(pFf);  $('leg-ff-chf').textContent  = f(cFf,pFf);
-  $('leg-sur-pct').textContent = fp(Math.max(0,pSur));
-  $('leg-sur-chf').textContent = rec > 0 ? fmt(Math.max(0,surplus)) + ' CHF' : '—';
-  $('leg-sur-chf').style.color = surplus >= 0 ? 'var(--green)' : 'var(--red)';
-
-  // ── Barres détail ─────────────────────────────────────────────────────────
-  const items = [
-    { name:'Main d\'œuvre',    v:cMo,   c:'#4A7CF7', note:`${nb} pers. × ${fmt(cout)} CHF/h × ${fmtH(dur)}` },
-    { name:'Carburant',        v:cCarb, c:'#F39C12', note:`${conso}L/100km × ${fmt(prixC)} CHF/L` },
-    { name:'Amortissement',    v:cAmort,c:'#E67E22', note:`CHF ${fmt(cam,0)} ÷ ${amort} ans ÷ ${fmt(kmAn,0)} km` },
-    { name:'Assurance',        v:cAssur,c:'#D35400', note:`CHF ${fmt(assur,0)}/an ÷ ${fmt(kmAn,0)} km` },
-    { name:'Vignette',         v:cVign, c:'#CA6F1E', note:`CHF ${fmt(vign,0)}/an` },
-    { name:'Entretien & usure',v:cEntr, c:'#BA4A00', note:`CHF ${fmt(entr,0)}/an estimé` },
-    { name:'RC pro',           v:cRc,   c:'#9B59B6', note:`CHF ${fmt(rc,0)}/an` },
-    { name:'Téléphone',        v:cTel,  c:'#8E44AD', note:`CHF ${fmt(tel,0)}/mois` },
+  const items=[
+    {name:"Main d'œuvre",v:cMo,c:'#4A7CF7',note:`${nb} pers. × ${fmt(cout)} CHF/h × ${fmtH(dur)}`},
+    {name:'Carburant',v:cCarb,c:'#F39C12',note:`${conso}L/100km × ${fmt(prixC)} CHF/L`},
+    {name:'Amortissement',v:cAmort,c:'#E67E22'},
+    {name:'Assurance',v:cAssur,c:'#D35400'},
+    {name:'Vignette',v:cVign,c:'#CA6F1E'},
+    {name:'Entretien',v:cEntr,c:'#BA4A00'},
+    {name:'RC pro',v:cRc,c:'#9B59B6'},
+    {name:'Téléphone',v:cTel,c:'#8E44AD'},
   ];
-  if (loc > 0) items.splice(1, 0, { name:'Location camion', v:cLoc, c:'#E8D5A3', note:'Coût total location' });
-
-  const maxV = Math.max(...items.map(i => i.v), 1);
-  const bl = $('bar-list');
-  bl.innerHTML = items.filter(i => i.v > 0).map(i => `
+  if(loc>0) items.splice(1,0,{name:'Location camion',v:cLoc,c:'#E8D5A3'});
+  const maxV=Math.max(...items.map(i=>i.v),1);
+  $('bar-list').innerHTML=items.filter(i=>i.v>0).map(i=>`
     <div class="bar-item">
-      <div class="bar-header">
-        <span class="bar-name">${i.name}</span>
-        <div class="bar-right">
-          <span class="bar-chf">${rec > 0 ? fmt(i.v) + ' CHF' : '—'}</span>
-          <span class="bar-pct">${rec > 0 ? fmt(i.v/rec*100,1) + '%' : ''}</span>
-        </div>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${rec>0?i.v/maxV*100:0}%; background:${i.c}"></div>
-      </div>
-    </div>
-  `).join('');
+      <div class="bar-header"><span class="bar-name">${i.name}</span><div class="bar-right"><span class="bar-chf">${rec>0?fmt(i.v)+' CHF':'—'}</span><span class="bar-pct">${rec>0?fmt(i.v/rec*100,1)+'%':''}</span></div></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${rec>0?i.v/maxV*100:0}%;background:${i.c}"></div></div>
+    </div>`).join('');
 
-  // ── Stacked bar ───────────────────────────────────────────────────────────
-  const sb = $('stacked-bar');
-  const pSurPos = Math.max(0, pSur);
-  sb.innerHTML = rec > 0 ? `
-    <div class="stacked-seg" style="width:${pMo*100}%; background:#4A7CF7">${pMo>0.08?fmt(pMo*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pVeh*100}%; background:#F39C12">${pVeh>0.08?fmt(pVeh*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pFf*100}%; background:#9B59B6">${pFf>0.06?fmt(pFf*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pSurPos*100}%; background:#2ECC71">${pSurPos>0.08?fmt(pSurPos*100,0)+'%':''}</div>
-  ` : '';
+  const pSurPos=Math.max(0,pSur);
+  $('stacked-bar').innerHTML=rec>0?`
+    <div class="stacked-seg" style="width:${pMo*100}%;background:#4A7CF7">${pMo>0.08?fmt(pMo*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pVeh*100}%;background:#F39C12">${pVeh>0.08?fmt(pVeh*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pFf*100}%;background:#9B59B6">${pFf>0.06?fmt(pFf*100,0)+'%':''}</div>
+    <div class="stacked-seg" style="width:${pSurPos*100}%;background:#2ECC71">${pSurPos>0.08?fmt(pSurPos*100,0)+'%':''}</div>`:'';
 
-  // ── Gauge manutention ─────────────────────────────────────────────────────
-  const manutH = Math.max(0, manut);
-  const maxH = 8;
-  const gaugeRatio = Math.min(manutH / maxH, 1);
-  const gaugeCirc = 251.3;
-  $('gauge-arc').style.strokeDashoffset = gaugeCirc * (1 - gaugeRatio);
-  $('gauge-arc').style.stroke = manutH > 2 ? '#2ECC71' : manutH > 1 ? '#F39C12' : '#E74C3C';
-  $('gauge-text').textContent = rec > 0 ? fmtH(manutH) : '—';
-  $('gauge-text').style.fill  = $('gauge-arc').style.stroke;
+  const manutH=Math.max(0,manut), maxH=8, gc=226.2;
+  const ratio=Math.min(manutH/maxH,1);
+  $('gauge-arc').style.strokeDashoffset=gc*(1-ratio);
+  $('gauge-arc').style.stroke=manutH>2?'#2ECC71':manutH>1?'#F39C12':'#E74C3C';
+  $('gauge-text').textContent=rec>0?fmtH(manutH):'—';
+  $('gauge-text').style.fill=$('gauge-arc').style.stroke;
+  $('manut-desc').innerHTML=rec>0?`Le surplus de <strong>${fmt(Math.max(0,surplus))} CHF</strong><br>couvre <strong style="color:var(--green)">${fmtH(manutH)}</strong> de manutention<br>pour une équipe de <strong>${nb}</strong> pers.`:'—';
 
-  $('manut-surplus').textContent = rec > 0 ? fmt(Math.max(0,surplus)) : '—';
-  $('manut-h').textContent       = rec > 0 ? fmtH(manutH) : '—';
-  $('manut-nb').textContent      = nb;
+  const minT=km>0?cTot/km:0;
+  $('status-badge').innerHTML=rec>0?`<div class="s-dot"></div>${surplus>=0?'Rentable':'Déficitaire'}`:'—';
+  $('status-badge').className='status-badge '+(surplus>=0?'s-green':'s-red');
+  $('s-min').textContent=rec>0?fmt(minT)+' CHF/km':'—';
+  $('s-marge').textContent=rec>0&&cTot>0?'+'+fmt((surplus/cTot)*100,1)+'%':'—';
+  $('s-cout-km').textContent=rec>0?fmt(coutKm)+' CHF':'—';
+  $('s-duree').textContent=dur>0?fmtH(dur):'—';
+}
 
-  // ── Status ────────────────────────────────────────────────────────────────
-  const badge = $('status-badge');
-  const stext = $('status-text');
-  if (rec > 0) {
-    if (surplus >= 0) {
-      badge.className = 'status-badge status-green';
-      stext.textContent = 'Rentable';
-    } else {
-      badge.className = 'status-badge status-red';
-      stext.textContent = 'Déficitaire';
-    }
+// ── POST-CHANTIER ──────────────────────────────────────────────────────────────
+function calcPost() {
+  const heures=get('r-heures'), nb=get('r-nb'), coutH=get('r-cout-h');
+  const litres=get('r-litres'), prixC=get('r-prix-c'), loc=get('r-loc');
+  const etages=get('r-etages'), volume=get('r-volume'), manut=get('r-manut'), autres=get('r-autres');
+  const rabais=get('r-rabais'), kmR=get('r-km');
+  const est=currentData.est;
+
+  const cMoR=nb*heures*coutH, cCarbR=litres*prixC, cTotR=cMoR+cCarbR+loc;
+  const suppl=etages+volume+manut+autres;
+  const recR=(est.rec||0)+suppl-rabais, benefR=recR-cTotR;
+  const revH=heures>0?benefR/heures:0;
+
+  currentData.post={heures,nb,coutH,litres,prixC,loc,etages,volume,manut,autres,rabais,kmR,cMoR,cCarbR,cTotR,suppl,recR,benefR,revH};
+
+  $('r-total-ht').textContent=fmt(recR)+' CHF';
+  $('r-total-ht').style.color=recR>0?'var(--blue)':'var(--red)';
+  $('r-total-cout').textContent=fmt(cTotR)+' CHF';
+  $('r-benef').textContent=fmt(benefR)+' CHF';
+  $('r-benef').style.color=benefR>=0?'var(--green)':'var(--red)';
+  $('r-revenu-h').textContent=heures>0?fmt(revH)+' CHF/h':'—';
+}
+
+// ── COMPARAISON ────────────────────────────────────────────────────────────────
+function calcComp() {
+  const e=currentData.est, p=currentData.post;
+  if(!e.rec||!p.recR) return;
+
+  const ecartRec=p.recR-e.rec, ecartCout=p.cTotR-e.cTot, ecartBenef=p.benefR-e.surplus;
+
+  const cv=(v,inv=false)=>{const g=inv?(v<=0):(v>=0); return g?'var(--green)':'var(--red)';};
+  const sign=v=>v>=0?'+':'';
+
+  $('c-ecart-rec').textContent=sign(ecartRec)+fmt(ecartRec)+' CHF';
+  $('c-ecart-rec').style.color=cv(ecartRec);
+  $('c-ecart-rec-sub').textContent=e.rec>0?sign(ecartRec/e.rec*100)+fmt(ecartRec/e.rec*100,1)+'% vs estimation':'—';
+
+  $('c-ecart-cout').textContent=sign(ecartCout)+fmt(ecartCout)+' CHF';
+  $('c-ecart-cout').style.color=cv(ecartCout,true);
+  $('c-ecart-cout-sub').textContent=e.cTot>0?sign(ecartCout/e.cTot*100)+fmt(ecartCout/e.cTot*100,1)+'% vs estimation':'—';
+
+  $('c-ecart-benef').textContent=sign(ecartBenef)+fmt(ecartBenef)+' CHF';
+  $('c-ecart-benef').style.color=cv(ecartBenef);
+  $('c-ecart-benef-sub').textContent=e.surplus>0?sign(ecartBenef/e.surplus*100)+fmt(ecartBenef/Math.abs(e.surplus)*100,1)+'% vs estimation':'—';
+
+  const rows=[
+    ['Recettes HT',e.rec,p.recR],
+    ["Main d'œuvre",e.cMo,p.cMoR,true],
+    ['Carburant réel',e.cMo*0,p.cCarbR,true],
+    ['Véhicule total',e.cVeh,p.cTotR-p.cMoR,true],
+    ['Total coûts',e.cTot,p.cTotR,true],
+    ['Surplus / Bénéfice',e.surplus,p.benefR],
+    ['Total client TTC',e.ttc,p.recR*1.081],
+  ];
+
+  $('comp-tbody').innerHTML=rows.map(([label,est,reel,inv=false])=>{
+    const d=reel-est, dp=est!==0?d/Math.abs(est)*100:0;
+    const good=inv?(d<=0):(d>=0);
+    const cls=good?'delta-pos':'delta-neg';
+    return `<tr>
+      <td>${label}</td>
+      <td>${fmt(est)}</td>
+      <td>${fmt(reel)}</td>
+      <td class="${cls}">${sign(d)}${fmt(d)}</td>
+      <td class="${cls}">${sign(dp)}${fmt(dp,1)}%</td>
+    </tr>`;
+  }).join('');
+
+  const ok=p.benefR>=e.surplus;
+  $('v-statut').innerHTML=`<div class="s-dot"></div>${ok?'Mieux que prévu':'En dessous des attentes'}`;
+  $('v-statut').className='status-badge '+(ok?'s-green':'s-red');
+  $('v-benef-est').textContent=fmt(e.surplus)+' CHF'; $('v-benef-est').style.color=e.surplus>=0?'var(--green)':'var(--red)';
+  $('v-benef-reel').textContent=fmt(p.benefR)+' CHF'; $('v-benef-reel').style.color=p.benefR>=0?'var(--green)':'var(--red)';
+  $('v-rev-h').textContent=p.heures>0?fmt(p.revH)+' CHF/h':'—';
+  $('v-km').textContent=e.km+' km estimés → '+p.kmR+' km réels';
+
+  const lessons=[];
+  if(p.cMoR>e.cMo*1.1) lessons.push('⚠ La main d\'œuvre a coûté '+fmt((p.cMoR/e.cMo-1)*100,0)+'% de plus — le chantier a pris plus de temps que prévu.');
+  if(p.cMoR<e.cMo*0.9) lessons.push('✓ L\'équipe a été efficace — '+fmt((1-p.cMoR/e.cMo)*100,0)+'% de gain sur la main d\'œuvre.');
+  if(p.kmR>e.km*1.1) lessons.push('⚠ '+fmt(p.kmR-e.km,0)+' km de plus que prévu — pense à anticiper ce cas dans tes futurs devis.');
+  if(p.suppl>0) lessons.push('✓ Les suppléments ('+fmt(p.suppl)+' CHF) ont amélioré la rentabilité.');
+  if(p.rabais>0) lessons.push('ℹ Rabais accordé de '+fmt(p.rabais)+' CHF — impact sur la marge.');
+  if(p.benefR<0) lessons.push('🔴 Chantier déficitaire — revoir le tarif km ou les conditions du devis.');
+  if(lessons.length===0) lessons.push('✓ Chantier dans les clous — estimation bien calibrée !');
+  $('lessons-content').innerHTML=lessons.join('<br><br>');
+}
+
+// ── SAUVEGARDE ─────────────────────────────────────────────────────────────────
+function saveChantier() {
+  const nom=$('chantier-nom').value||'Sans nom — '+new Date().toLocaleDateString('fr-CH');
+  const idx=chantiers.findIndex(c=>c.nom===nom);
+  const entry={nom,date:new Date().toISOString(),est:{...currentData.est},post:{...currentData.post},complete:currentData.post.heures>0};
+  if(idx>=0) chantiers[idx]=entry; else chantiers.unshift(entry);
+  localStorage.setItem('hilario-chantiers',JSON.stringify(chantiers));
+  $('badge-hist').textContent=chantiers.length;
+  $('hist-count').textContent=chantiers.length;
+  alert('✓ Chantier "'+nom+'" sauvegardé !');
+}
+
+function loadChantier(nom) {
+  const c=chantiers.find(x=>x.nom===nom);
+  if(!c) return;
+  $('chantier-nom').value=c.nom;
+  currentData=c;
+  // Restaurer km
+  if(c.est.km) $('inp-km').value=c.est.km;
+  if(c.post.heures) { $('r-heures').value=c.post.heures; $('r-nb').value=c.post.nb||2; $('r-cout-h').value=c.post.coutH||40; $('r-litres').value=c.post.litres||0; $('r-prix-c').value=c.post.prixC||2; $('r-loc').value=c.post.loc||0; $('r-etages').value=c.post.etages||0; $('r-volume').value=c.post.volume||0; $('r-manut').value=c.post.manut||0; $('r-autres').value=c.post.autres||0; $('r-rabais').value=c.post.rabais||0; $('r-km').value=c.post.kmR||0; }
+  calcEst(); calcPost(); updateBadges();
+  showPage('estimation');
+}
+
+function deleteChantier(nom,e) {
+  e.stopPropagation();
+  if(!confirm('Supprimer "'+nom+'" ?')) return;
+  chantiers=chantiers.filter(c=>c.nom!==nom);
+  localStorage.setItem('hilario-chantiers',JSON.stringify(chantiers));
+  $('badge-hist').textContent=chantiers.length;
+  $('hist-count').textContent=chantiers.length;
+  renderHistory();
+}
+
+function newChantier() {
+  $('chantier-nom').value='';
+  currentData={est:{},post:{}};
+  $('inp-km').value=100;
+  calcEst(); updateBadges(); showPage('estimation');
+}
+
+function renderHistory() {
+  $('badge-hist').textContent=chantiers.length;
+  $('hist-count').textContent=chantiers.length;
+  if(chantiers.length===0){
+    $('history-list').innerHTML='<div class="empty-state">Aucun chantier sauvegardé.<br>Commence par remplir l\'estimation et clique sur "Sauvegarder".</div>';
+    return;
   }
-
-  const minTarif = km > 0 ? cTot / km : 0;
-  $('status-min-tarif').textContent = rec > 0 ? fmt(minTarif) + ' CHF/km' : '—';
-  $('status-marge').textContent     = rec > 0 && cTot > 0 ? '+' + fmt((surplus/cTot)*100,1) + '%' : '—';
-  $('status-cout-km').textContent   = rec > 0 ? fmt(coutKm) + ' CHF' : '—';
-  $('status-duree').textContent     = dur > 0 ? fmtH(dur) : '—';
+  $('history-list').innerHTML=chantiers.map(c=>`
+    <div class="history-item ${c.complete?'complete':'draft'}" onclick="loadChantier('${c.nom.replace(/'/g,"\\'")}')">
+      <div class="hi-left">
+        <div class="hi-name">${c.nom}</div>
+        <div class="hi-meta">${new Date(c.date).toLocaleDateString('fr-CH')} · ${c.est.km||0} km estimés${c.post.heures?` · ${c.post.heures}h réelles`:''}</div>
+      </div>
+      <div class="hi-right">
+        <span class="hi-surplus" style="color:${c.complete?(c.post.benefR>=0?'var(--green)':'var(--red)'):'var(--muted)'}">
+          ${c.complete?((c.post.benefR>=0?'+':'')+fmt(c.post.benefR)+' CHF'):'En cours...'}
+        </span>
+        <span class="hi-badge" style="background:${c.complete?'rgba(46,204,113,.15)':'rgba(243,156,18,.15)'};color:${c.complete?'var(--green)':'var(--orange)'}">
+          ${c.complete?'Terminé':'Brouillon'}
+        </span>
+        <button class="btn btn-danger btn-sm" onclick="deleteChantier('${c.nom.replace(/'/g,"\\'")}',event)">✕</button>
+      </div>
+    </div>`).join('');
 }
 
-// ── MODAL ─────────────────────────────────────────────────────────────────────
-function openModal()  { $('overlay').classList.add('open'); }
+function openModal() { $('overlay').classList.add('open'); }
 function closeModal() { $('overlay').classList.remove('open'); }
-function closeModalOutside(e) { if (e.target === $('overlay')) closeModal(); }
-
-function resetParams() {
-  Object.entries(DEFAULTS).forEach(([id, val]) => {
-    if ($(id)) $(id).value = val;
-  });
-  calc();
-}
+function closeModalOut(e) { if(e.target===$('overlay')) closeModal(); }
+function resetParams() { $('inp-km').value=100; $('p-tarif').value=2.20; $('p-nb').value=2; $('p-cout').value=40; $('p-vit').value=85; $('p-conso').value=10; $('p-prix-c').value=2.00; $('p-cam').value=16400; $('p-amort').value=3; $('p-km-an').value=50000; $('p-assur').value=3000; $('p-vign').value=40; $('p-entr').value=1500; $('p-loc').value=0; $('p-rc').value=355; $('p-tel').value=35; calcEst(); }
 
 // Init
-calc();
+renderHistory();
+calcEst();
 </script>
 </body>
 </html>
