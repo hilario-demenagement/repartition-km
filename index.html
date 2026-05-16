@@ -232,7 +232,7 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
     </div>
   </div>
 </div>
-
+ 
 <!-- POST-CHANTIER -->
 <div class="tab-panel" id="panel-post">
   <div class="card" style="margin-bottom:14px">
@@ -268,7 +268,7 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
     <button class="btn btn-primary" style="flex:1;justify-content:center;padding:13px" onclick="switchTab('comparaison')">→ Voir la comparaison</button>
   </div>
 </div>
-
+ 
 <!-- COMPARAISON -->
 <div class="tab-panel" id="panel-comparaison">
   <div id="comp-empty" class="empty"><div class="empty-icon">📊</div><div class="empty-title">Aucune donnée à comparer</div><div class="empty-sub">Complète l'estimation et le post-chantier.</div></div>
@@ -291,7 +291,7 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
     </div>
   </div>
 </div>
-
+ 
 <!-- HISTORIQUE -->
 <div class="tab-panel" id="panel-historique">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -301,7 +301,7 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
   <div class="hlist" id="hlist"></div>
 </div>
 </main>
-
+ 
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeOut(event)">
   <div class="modal">
@@ -332,14 +332,14 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
     <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="closeModal()">Appliquer ✓</button>
   </div>
 </div>
-
+ 
 <script>
 const $=id=>document.getElementById(id);
 const fmt=(n,d=2)=>n.toLocaleString("fr-CH",{minimumFractionDigits:d,maximumFractionDigits:d});
 const fmtH=h=>{const hrs=Math.floor(h),min=Math.round((h-hrs)*60);return hrs>0?hrs+"h"+(min>0?String(min).padStart(2,"0"):""):min+"min";};
 const g=id=>parseFloat($(id).value)||0;
 let EST=null,POST=null;
-
+ 
 function switchTab(name){
   const names=["estimation","post","comparaison","historique"];
   document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",names[i]===name));
@@ -349,7 +349,7 @@ function switchTab(name){
   if(name==="comparaison")buildComp();
   if(name==="historique")buildHist();
 }
-
+ 
 function calc(){
   const km=g("inp-km"),tarif=g("p-tarif"),nb=g("p-nb"),cout=g("p-cout"),vit=g("p-vit");
   const conso=g("p-conso"),prixC=g("p-prixc"),cam=g("p-cam"),amort=g("p-amort");
@@ -414,13 +414,13 @@ function calc(){
   if(rec>0){if(sur>=0){b.className="sbadge sg";st.textContent="Rentable";}else{b.className="sbadge sr";st.textContent="Déficitaire";}}
   $("st-min").textContent=rec>0?fmt(cTot/km)+" CHF/km":"—";$("st-ck").textContent=rec>0?fmt(cTot/km)+" CHF":"—";$("st-d").textContent=dur>0?fmtH(dur):"—";
 }
-
+ 
 function updatePostHeader(){
   if(!EST)return;
   $("p-nom").textContent=EST.nom;$("p-recap").textContent="Estimation : "+EST.km+" km · "+fmt(EST.rec)+" CHF HT";
   $("r-km").placeholder=EST.km+" (estimation)";$("r-nb").value=EST.nb;
 }
-
+ 
 function calcPost(){
   const h=g("r-h"),litres=g("r-l"),km=g("r-km")||g("inp-km");
   const pc=g("r-pc"),sup=g("r-sup"),rab=g("r-rab"),loc=g("r-loc"),nb=g("r-nb");
@@ -440,7 +440,7 @@ function calcPost(){
   const me=$("pr-mar");me.textContent=recHT>0?fmt(marge)+" CHF":"—";me.style.color=marge>=0?"var(--green)":"var(--red)";
   $("pr-marp").textContent=recHT>0?fmt(marge/recHT*100,1)+"%":"—";
 }
-
+ 
 function buildComp(){
   if(!EST||!POST){$("comp-empty").style.display="block";$("comp-content").style.display="none";return;}
   $("comp-empty").style.display="none";$("comp-content").style.display="block";
@@ -472,10 +472,10 @@ function buildComp(){
   if(P.h>0)an.push('<span style="color:var(--text)">⏱ Revenu horaire :</span> '+fmt(revH)+" CHF/h de marge.");
   $("comp-anal").innerHTML=an.map(a=>"<div>"+a+"</div>").join("");
 }
-
+ 
 function getHist(){try{return JSON.parse(localStorage.getItem("hilario_ch"))||[];}catch{return[];}}
 function setHist(h){localStorage.setItem("hilario_ch",JSON.stringify(h));}
-
+ 
 function saveEst(){
   if(!EST){alert("Complète l'estimation d'abord.");return;}
   calc();
@@ -483,7 +483,7 @@ function saveEst(){
   h.unshift({id:Date.now(),date:new Date().toLocaleDateString("fr-CH"),nom:EST.nom,km:EST.km,recHT:EST.rec,ttc:EST.ttc,sur:EST.sur,est:{...EST},post:null});
   setHist(h);alert("✓ "+EST.nom+" sauvegardé !");
 }
-
+ 
 function savePost(){
   if(!POST||!EST){alert("Complète d'abord l'estimation et le post-chantier.");return;}
   const h=getHist(),found=h.find(x=>x.nom===EST.nom);
@@ -491,7 +491,7 @@ function savePost(){
   else h.unshift({id:Date.now(),date:new Date().toLocaleDateString("fr-CH"),nom:EST.nom,km:POST.km,recHT:POST.recHT,ttc:POST.recTTC,sur:EST.sur,margeR:POST.marge,est:{...EST},post:{...POST}});
   setHist(h);alert("✓ Post-chantier sauvegardé !");
 }
-
+ 
 function buildHist(){
   const h=getHist();$("h-count").textContent=h.length+" chantier(s) sauvegardé(s)";
   if(h.length===0){$("hlist").innerHTML='<div class="empty"><div class="empty-icon">📁</div><div class="empty-title">Aucun chantier sauvegardé</div><div class="empty-sub">Sauvegarde depuis l\'onglet Estimation.</div></div>';return;}
@@ -501,7 +501,7 @@ function buildHist(){
     return'<div class="hitem" onclick="loadItem('+item.id+')"><div class="hleft"><div class="hname">'+item.nom+'</div><div class="hmeta">'+item.date+" · "+item.km+" km · "+fmt(item.recHT)+' CHF HT</div></div><div class="hright">'+tag+'<div class="hbadge" style="color:'+mc+'">'+fmt(m)+' CHF</div><span style="color:var(--muted);font-size:14px">›</span></div></div>';
   }).join("");
 }
-
+ 
 function loadItem(id){
   const h=getHist(),item=h.find(x=>x.id===id);if(!item)return;
   $("chantier-nom").value=item.nom;$("inp-km").value=item.est.km;
@@ -516,7 +516,7 @@ function loadItem(id){
   }
   switchTab("estimation");
 }
-
+ 
 function clearHist(){if(!confirm("Effacer tout l'historique ?"))return;localStorage.removeItem("hilario_ch");buildHist();}
 function openModal(){$("overlay").classList.add("open");}
 function closeModal(){$("overlay").classList.remove("open");}
