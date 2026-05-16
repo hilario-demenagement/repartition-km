@@ -6,817 +6,522 @@
 <title>Répartition km — Hilario Déménagement</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0F0F0F;--surface:#161616;--border:#2A2A2A;--border-hi:#3A3A3A;
-  --text:#F0EEE8;--muted:#666;--accent:#E8D5A3;
-  --blue:#4A7CF7;--green:#2ECC71;--orange:#F39C12;--red:#E74C3C;--purple:#9B59B6;
-  --radius:12px;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;
-}
+:root{--bg:#0F0F0F;--surface:#161616;--border:#2A2A2A;--border-hi:#3A3A3A;--text:#F0EEE8;--muted:#666;--accent:#E8D5A3;--blue:#4A7CF7;--green:#2ECC71;--orange:#F39C12;--red:#E74C3C;--purple:#9B59B6;--radius:12px;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
-
-header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);z-index:100;}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,15,15,.92);backdrop-filter:blur(12px);z-index:100;}
 .logo{display:flex;align-items:center;gap:10px;}
-.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.logo-icon{width:30px;height:30px;background:var(--accent);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
 .logo-text{font-size:13px;font-weight:500;}
 .logo-sub{font-size:10px;color:var(--muted);font-family:var(--mono);}
-.header-right{display:flex;align-items:center;gap:8px;}
-
-.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all 0.15s;border:1px solid var(--border);display:flex;align-items:center;gap:5px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.tabs{display:flex;gap:3px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:3px;}
+.tab{font-family:var(--sans);font-size:12px;font-weight:500;padding:7px 14px;border-radius:7px;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .15s;display:flex;align-items:center;gap:5px;}
+.tab:hover{color:var(--text);}
+.tab.active{background:var(--border-hi);color:var(--text);}
+.tab .tdot{width:5px;height:5px;border-radius:50%;background:var(--muted);}
+.tab.active .tdot{background:var(--green);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.btn{font-family:var(--sans);font-size:12px;font-weight:500;padding:8px 14px;border-radius:8px;cursor:pointer;transition:all .15s;border:1px solid var(--border);display:flex;align-items:center;gap:6px;}
 .btn-ghost{background:transparent;color:var(--muted);}
 .btn-ghost:hover{color:var(--text);border-color:var(--border-hi);}
-.btn-accent{background:var(--accent);color:#0F0F0F;border-color:var(--accent);}
-.btn-accent:hover{opacity:0.85;}
-.btn-sm{padding:5px 10px;font-size:11px;}
-.btn-danger{background:rgba(231,76,60,0.15);color:var(--red);border-color:rgba(231,76,60,0.3);}
-.btn-danger:hover{background:rgba(231,76,60,0.25);}
-
-/* TABS */
-.tabs-wrap{display:flex;gap:0;border-bottom:1px solid var(--border);padding:0 28px;background:var(--surface);}
-.tab{font-size:12px;font-weight:500;padding:12px 18px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:6px;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--sans);}
-.tab:hover{color:var(--text);}
-.tab.active{color:var(--text);border-bottom-color:var(--accent);}
-.tab-badge{font-size:9px;font-weight:500;padding:2px 6px;border-radius:10px;background:var(--border);color:var(--muted);}
-.tab.active .tab-badge{background:rgba(232,213,163,0.2);color:var(--accent);}
-
+.btn-primary{background:var(--accent);color:#0F0F0F;border-color:var(--accent);}
+.btn-primary:hover{opacity:.85;}
+.btn-green{background:rgba(46,204,113,.12);color:var(--green);border-color:rgba(46,204,113,.25);}
+.btn-green:hover{background:rgba(46,204,113,.22);}
+.btn-red{background:rgba(231,76,60,.1);color:var(--red);border-color:rgba(231,76,60,.25);}
+.btn-red:hover{background:rgba(231,76,60,.2);}
 main{padding:24px 28px;max-width:1100px;margin:0 auto;}
-.page{display:none;}
-.page.active{display:block;}
-
-/* HERO */
-.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;}
-.hero-card.gold{border-color:var(--accent);background:linear-gradient(135deg,#1A1400 0%,#161616 60%);}
-.hero-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-.hero-val{font-family:var(--mono);font-size:28px;font-weight:300;}
-.hero-unit{font-family:var(--mono);font-size:13px;color:var(--muted);margin-left:4px;}
-.hero-sub{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--mono);}
-.hero-input{font-family:var(--mono);font-size:28px;font-weight:300;color:var(--accent);background:transparent;border:none;outline:none;width:130px;caret-color:var(--accent);}
-
-/* GRID */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.grid-full{grid-column:1/-1;}
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;}
+.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;}
+.hero-card.ac{border-color:var(--accent);background:linear-gradient(135deg,#1A1800 0%,#161616 60%);}
+.hl{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px;}
+.hw{display:flex;align-items:baseline;gap:6px;}
+.hinput{font-family:var(--mono);font-size:28px;font-weight:300;color:var(--accent);background:transparent;border:none;outline:none;caret-color:var(--accent);}
+.hinput.w{width:100%;}
+.hunit{font-family:var(--mono);font-size:13px;color:var(--muted);}
+.hval{font-family:var(--mono);font-size:28px;font-weight:300;}
+.hval.green{color:var(--green);}.hval.red{color:var(--red);}.hval.blue{color:var(--blue);}.hval.gold{color:var(--accent);}
+.hsub{font-size:10px;color:var(--muted);margin-top:3px;font-family:var(--mono);}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
+.mcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
+.ml{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.mv{font-family:var(--mono);font-size:20px;font-weight:300;margin-bottom:2px;}
+.ms{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
-.card-title{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.card-title::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* METRICS */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px;}
-.metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;}
-.metric-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
-.metric-val{font-family:var(--mono);font-size:20px;font-weight:300;}
-.metric-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px;}
-
-/* BARS */
-.bar-list{display:flex;flex-direction:column;gap:12px;}
-.bar-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
-.bar-name{font-size:12px;color:var(--text);}
-.bar-right{display:flex;align-items:baseline;gap:8px;}
-.bar-chf{font-family:var(--mono);font-size:12px;font-weight:500;}
-.bar-pct{font-family:var(--mono);font-size:10px;color:var(--muted);min-width:34px;text-align:right;}
-.bar-track{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:2px;transition:width 0.5s cubic-bezier(.4,0,.2,1);}
-
-/* DONUT */
-.donut-wrap{display:flex;align-items:center;gap:24px;}
-.donut-legend{flex:1;display:flex;flex-direction:column;gap:8px;}
-.leg-item{display:flex;align-items:center;justify-content:space-between;gap:6px;}
-.leg-left{display:flex;align-items:center;gap:7px;}
-.leg-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0;}
-.leg-name{font-size:11px;}
-.leg-pct{font-family:var(--mono);font-size:11px;color:var(--muted);}
-.leg-chf{font-family:var(--mono);font-size:11px;font-weight:500;min-width:68px;text-align:right;}
-
-/* STACKED */
-.stacked-bar{height:24px;border-radius:8px;overflow:hidden;display:flex;gap:2px;margin-bottom:12px;}
-.stacked-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:rgba(255,255,255,.9);transition:width 0.5s;overflow:hidden;white-space:nowrap;}
-.stacked-labels{display:flex;gap:14px;flex-wrap:wrap;}
-.sl{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--muted);}
-.sl-dot{width:7px;height:7px;border-radius:2px;}
-
-/* STATUS */
-.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
-.s-green{background:rgba(46,204,113,.15);color:var(--green);}
-.s-red{background:rgba(231,76,60,.15);color:var(--red);}
-.s-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
-
-/* GAUGE */
-.gauge-wrap{display:flex;align-items:center;gap:18px;}
-.gauge-desc{font-size:12px;color:var(--muted);line-height:1.6;}
-
-/* STATUS ROWS */
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--border);}
-.stat-row:last-child{border-bottom:none;}
-.stat-label{font-size:12px;color:var(--muted);}
-.stat-val{font-family:var(--mono);font-size:12px;}
-
-/* POST-CHANTIER */
-.section-title{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.inp{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:var(--mono);font-size:13px;color:var(--accent);width:100%;outline:none;transition:border-color .15s;}
-.inp:focus{border-color:var(--accent);}
-.inp-unit{position:relative;}
-.inp-unit input{padding-right:40px;}
-.inp-unit span{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:10px;color:var(--muted);font-family:var(--mono);}
-
-/* COMPARAISON */
+.ct{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.ct::after{content:'';flex:1;height:1px;background:var(--border);}
+.donut-wrap{display:flex;align-items:center;gap:20px;}
+.dleg{flex:1;display:flex;flex-direction:column;gap:8px;}
+.dleg-item{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.dleg-left{display:flex;align-items:center;gap:7px;}
+.ddot{width:7px;height:7px;border-radius:2px;flex-shrink:0;}
+.dname{font-size:11px;}.dpct{font-family:var(--mono);font-size:10px;color:var(--muted);}
+.dchf{font-family:var(--mono);font-size:11px;font-weight:500;text-align:right;min-width:65px;}
+.bar-list{display:flex;flex-direction:column;gap:10px;}
+.bh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;}
+.bn{font-size:11px;}.br{display:flex;align-items:baseline;gap:7px;}
+.bc{font-family:var(--mono);font-size:11px;font-weight:500;}
+.bp{font-family:var(--mono);font-size:9px;color:var(--muted);min-width:32px;text-align:right;}
+.btrack{height:3px;background:var(--border);border-radius:2px;overflow:hidden;}
+.bfill{height:100%;border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+.sbar{height:24px;border-radius:7px;overflow:hidden;display:flex;margin-bottom:10px;gap:2px;}
+.sseg{height:100%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;color:rgba(255,255,255,.9);transition:all .5s;overflow:hidden;white-space:nowrap;letter-spacing:.05em;}
+.slabs{display:flex;gap:12px;flex-wrap:wrap;}
+.slab{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);}
+.sdot{width:7px;height:7px;border-radius:2px;}
+.sbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 9px;border-radius:20px;}
+.sg{background:rgba(46,204,113,.15);color:var(--green);}.sr{background:rgba(231,76,60,.15);color:var(--red);}.so{background:rgba(243,156,18,.15);color:var(--orange);}
+.sdot2{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.gauge-wrap{display:flex;align-items:center;gap:16px;}
+.gauge-desc{font-size:11px;color:var(--muted);line-height:1.6;flex:1;}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ifield{display:flex;flex-direction:column;gap:4px;}
+.ifield.full{grid-column:1/-1;}
+.ilabel{font-size:10px;color:var(--muted);}
+.iwrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .15s;}
+.iwrap:focus-within{border-color:var(--accent);}
+.inp2{font-family:var(--mono);font-size:13px;color:var(--accent);background:transparent;border:none;outline:none;padding:9px 11px;flex:1;width:0;}
+.iunit{font-size:10px;color:var(--muted);padding:0 10px 0 0;font-family:var(--mono);}
+.inote{font-size:9px;color:var(--muted);font-style:italic;}
+.slabel{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin:18px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--border);}
 .comp-table{width:100%;border-collapse:collapse;}
-.comp-table th{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;text-align:right;border-bottom:1px solid var(--border);}
-.comp-table th:first-child{text-align:left;}
-.comp-table td{font-size:12px;padding:9px 12px;border-bottom:0.5px solid var(--border);font-family:var(--mono);text-align:right;}
-.comp-table td:first-child{text-align:left;color:var(--text);font-family:var(--sans);font-size:12px;}
+.comp-table th{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;padding:7px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.comp-table td{font-size:12px;padding:9px 10px;border-bottom:1px solid var(--border);}
 .comp-table tr:last-child td{border-bottom:none;}
-.delta-pos{color:var(--green);}
-.delta-neg{color:var(--red);}
-.delta-neu{color:var(--muted);}
-.comp-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
-.comp-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
-.comp-label{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
-.comp-val{font-family:var(--mono);font-size:22px;font-weight:300;}
-.comp-sub{font-size:10px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
-
-/* HISTORIQUE */
-.history-list{display:flex;flex-direction:column;gap:8px;}
-.history-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;}
-.history-item:hover{border-color:var(--border-hi);}
-.history-item.complete{border-left:3px solid var(--green);}
-.history-item.draft{border-left:3px solid var(--orange);}
-.hi-left{display:flex;flex-direction:column;gap:3px;}
-.hi-name{font-size:13px;font-weight:500;}
-.hi-meta{font-size:11px;color:var(--muted);font-family:var(--mono);}
-.hi-right{display:flex;align-items:center;gap:12px;}
-.hi-surplus{font-family:var(--mono);font-size:13px;font-weight:500;}
-.hi-badge{font-size:10px;padding:2px 7px;border-radius:10px;}
-.empty-state{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
-
-/* MODAL */
+.est{font-family:var(--mono);color:var(--blue);}.real{font-family:var(--mono);color:var(--orange);}
+.dpos{font-family:var(--mono);color:var(--green);}.dneg{font-family:var(--mono);color:var(--red);}
+.trow td{font-weight:500;font-size:13px;background:rgba(255,255,255,.03);}
+.verdict{border-radius:var(--radius);padding:20px;margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.verdict.pos{background:rgba(46,204,113,.07);border:1px solid rgba(46,204,113,.18);}
+.verdict.neg{background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.18);}
+.vi-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.vi-val{font-family:var(--mono);font-size:24px;font-weight:300;}
+.hlist{display:flex;flex-direction:column;gap:9px;}
+.hitem{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:border-color .15s;}
+.hitem:hover{border-color:var(--border-hi);}
+.hleft{display:flex;flex-direction:column;gap:3px;}
+.hname{font-size:13px;font-weight:500;}.hmeta{font-size:10px;color:var(--muted);font-family:var(--mono);}
+.hright{display:flex;align-items:center;gap:10px;}.hbadge{font-family:var(--mono);font-size:12px;font-weight:500;}
+.empty{text-align:center;padding:50px 20px;color:var(--muted);}
+.empty-icon{font-size:36px;margin-bottom:10px;}.empty-title{font-size:14px;margin-bottom:5px;color:var(--text);}.empty-sub{font-size:11px;}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;}
 .overlay.open{display:flex;}
-.modal{background:var(--surface);border:1px solid var(--border-hi);border-radius:16px;width:500px;max-height:85vh;overflow-y:auto;padding:28px;animation:slideUp .2s ease;}
-@keyframes slideUp{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
-.modal-title{font-size:15px;font-weight:500;}
-.modal-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;padding:4px;}
-.modal-close:hover{color:var(--text);}
-.param-section{margin-bottom:20px;}
-.param-section-title{font-size:10px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
-.param-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.param-field{display:flex;flex-direction:column;gap:5px;}
-.param-field.full{grid-column:1/-1;}
-.param-label{font-size:11px;color:var(--muted);}
-.param-wrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color .15s;}
-.param-wrap:focus-within{border-color:var(--accent);}
-.param-inp{font-family:var(--mono);font-size:13px;color:var(--accent);background:transparent;border:none;outline:none;padding:9px 10px;flex:1;width:0;}
-.param-unit{font-size:10px;color:var(--muted);padding:0 9px 0 0;font-family:var(--mono);white-space:nowrap;}
+.modal{background:var(--surface);border:1px solid var(--border-hi);border-radius:16px;width:520px;max-height:85vh;overflow-y:auto;padding:26px;animation:slideUp .2s ease;}
+@keyframes slideUp{from{transform:translateY(14px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.mh{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.mtitle{font-size:15px;font-weight:600;}.mclose{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;}
+.mclose:hover{color:var(--text);}
+.psec{margin-bottom:18px;}
+.pstitle{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.pfield{display:flex;flex-direction:column;gap:4px;}.pfield.full{grid-column:1/-1;}
+.plabel{font-size:10px;color:var(--muted);}
+.pinwrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:7px;overflow:hidden;transition:border-color .15s;}
+.pinwrap:focus-within{border-color:var(--accent);}
+.pinput{font-family:var(--mono);font-size:13px;color:var(--accent);background:transparent;border:none;outline:none;padding:8px 10px;flex:1;width:0;}
+.punit{font-size:10px;color:var(--muted);padding:0 9px 0 0;font-family:var(--mono);}
 ::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border-hi);border-radius:3px;}
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">
     <div class="logo-icon">🚛</div>
-    <div><div class="logo-text">Hilario Déménagement</div><div class="logo-sub">Répartition kilométrique</div></div>
+    <div><div class="logo-text">Hilario Déménagement</div><div class="logo-sub">Analyse kilométrique</div></div>
   </div>
-  <div class="header-right">
-    <button class="btn btn-ghost btn-sm" onclick="showPage('historique')">📋 Historique (<span id="hist-count">0</span>)</button>
-    <button class="btn btn-ghost btn-sm" onclick="resetParams()">↺ Réinit.</button>
-    <button class="btn btn-accent btn-sm" onclick="openModal()">⚙ Paramètres</button>
+  <div class="hdr-right">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('estimation')"><div class="tdot"></div>Estimation</button>
+      <button class="tab" onclick="switchTab('post')"><div class="tdot"></div>Post-chantier</button>
+      <button class="tab" onclick="switchTab('comparaison')"><div class="tdot"></div>Comparaison</button>
+      <button class="tab" onclick="switchTab('historique')"><div class="tdot"></div>Historique</button>
+    </div>
+    <button class="btn btn-ghost" onclick="openModal()">⚙ Paramètres</button>
   </div>
 </header>
-
-<div class="tabs-wrap">
-  <button class="tab active" onclick="showPage('estimation')" id="tab-estimation">
-    📐 Estimation <span class="tab-badge" id="badge-est">Avant</span>
-  </button>
-  <button class="tab" onclick="showPage('post')" id="tab-post">
-    ✅ Post-chantier <span class="tab-badge" id="badge-post">Après</span>
-  </button>
-  <button class="tab" onclick="showPage('comparaison')" id="tab-comp">
-    ⚖ Comparaison <span class="tab-badge" id="badge-comp">Résultat</span>
-  </button>
-  <button class="tab" onclick="showPage('historique')" id="tab-hist">
-    📋 Historique <span class="tab-badge" id="badge-hist">0</span>
-  </button>
-</div>
-
 <main>
-
-<!-- ══ PAGE ESTIMATION ══════════════════════════════════════════════════════ -->
-<div class="page active" id="page-estimation">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-    <div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Nom du chantier</div>
-      <input id="chantier-nom" class="inp" style="width:280px;font-family:var(--sans);font-size:13px;" placeholder="Ex. Evilard → Annecy" oninput="updateBadges()">
-    </div>
-    <button class="btn btn-accent" onclick="saveChantier()">💾 Sauvegarder</button>
-  </div>
-
+<!-- ESTIMATION -->
+<div class="tab-panel active" id="panel-estimation">
   <div class="hero">
-    <div class="hero-card" style="border-color:var(--accent);background:linear-gradient(135deg,#1A1800 0%,#161616 60%);">
-      <div class="hero-label">Kilomètres du trajet</div>
-      <div style="display:flex;align-items:baseline;gap:6px;">
-        <input class="hero-input" id="inp-km" type="number" value="100" min="1" oninput="calcEst()">
-        <span class="hero-unit">km</span>
-      </div>
-      <div class="hero-sub" id="hero-duration">—</div>
+    <div class="hero-card ac">
+      <div class="hl">Nom du chantier</div>
+      <input class="hinput w" id="chantier-nom" type="text" placeholder="Ex. Bienne → Genève" style="font-size:16px" oninput="calc()">
+      <div class="hsub" id="hero-dur">— h de trajet estimé</div>
+    </div>
+    <div class="hero-card ac">
+      <div class="hl">Kilomètres</div>
+      <div class="hw"><input class="hinput" id="inp-km" type="number" value="100" min="1" style="width:110px" oninput="calc()"><span class="hunit">km</span></div>
+      <div class="hsub">Distance totale aller-retour</div>
     </div>
     <div class="hero-card">
-      <div class="hero-label">Recettes HT</div>
-      <div style="display:flex;align-items:baseline;gap:4px;">
-        <span class="hero-val" id="hero-rec" style="color:var(--blue)">—</span>
-        <span class="hero-unit">CHF</span>
-      </div>
-      <div class="hero-sub" id="hero-tarif-info">—</div>
+      <div class="hl">Recettes HT</div>
+      <div class="hw"><span class="hval blue" id="h-rec">—</span><span class="hunit">CHF</span></div>
+      <div class="hsub" id="h-ti">—</div>
     </div>
-    <div class="hero-card">
-      <div class="hero-label">Surplus / Marge</div>
-      <div style="display:flex;align-items:baseline;gap:4px;">
-        <span class="hero-val" id="hero-surplus">—</span>
-        <span class="hero-unit">CHF</span>
-      </div>
-      <div class="hero-sub" id="hero-surplus-pct">—</div>
-    </div>
-    <div class="hero-card gold">
-      <div class="hero-label" style="color:var(--accent);">Total client TTC</div>
-      <div style="display:flex;align-items:baseline;gap:4px;">
-        <span class="hero-val" id="hero-ttc" style="color:var(--accent);">—</span>
-        <span class="hero-unit">CHF</span>
-      </div>
-      <div class="hero-sub" id="hero-ttc-sub">TVA 8.1% incluse</div>
+    <div class="hero-card ac">
+      <div class="hl" style="color:var(--accent)">Total client TTC</div>
+      <div class="hw"><span class="hval gold" id="h-ttc">—</span><span class="hunit">CHF</span></div>
+      <div class="hsub" id="h-ttcs">TVA 8.1% incluse</div>
     </div>
   </div>
-
   <div class="metrics">
-    <div class="metric"><div class="metric-label">Coût / km réel</div><div class="metric-val" id="m-cout-km" style="color:var(--red)">—</div><div class="metric-sub" id="m-tarif-km">—</div></div>
-    <div class="metric"><div class="metric-label">Main d'œuvre</div><div class="metric-val" id="m-mo" style="color:var(--blue)">—</div><div class="metric-sub" id="m-mo-pct">—</div></div>
-    <div class="metric"><div class="metric-label">Coût véhicule</div><div class="metric-val" id="m-veh" style="color:var(--orange)">—</div><div class="metric-sub" id="m-veh-pct">—</div></div>
-    <div class="metric"><div class="metric-label">Manutention couverte</div><div class="metric-val" id="m-manut" style="color:var(--green)">—</div><div class="metric-sub">heures absorbées</div></div>
+    <div class="mcard"><div class="ml">Surplus estimé</div><div class="mv" id="m-sur" style="color:var(--green)">—</div><div class="ms" id="m-surp">—</div></div>
+    <div class="mcard"><div class="ml">Main d'œuvre</div><div class="mv" id="m-mo" style="color:var(--blue)">—</div><div class="ms" id="m-mop">—</div></div>
+    <div class="mcard"><div class="ml">Coût véhicule</div><div class="mv" id="m-veh" style="color:var(--orange)">—</div><div class="ms" id="m-vehp">—</div></div>
+    <div class="mcard"><div class="ml">Manutention couverte</div><div class="mv" id="m-man" style="color:var(--green)">—</div><div class="ms">heures absorbées</div></div>
   </div>
-
   <div class="grid2">
     <div class="card">
-      <div class="card-title">Répartition</div>
+      <div class="ct">Répartition</div>
       <div class="donut-wrap">
-        <svg width="130" height="130" viewBox="0 0 130 130">
-          <circle cx="65" cy="65" r="50" fill="none" stroke="#2A2A2A" stroke-width="16"/>
-          <circle id="d-mo" cx="65" cy="65" r="50" fill="none" stroke="#4A7CF7" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
-          <circle id="d-veh" cx="65" cy="65" r="50" fill="none" stroke="#F39C12" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
-          <circle id="d-ff" cx="65" cy="65" r="50" fill="none" stroke="#9B59B6" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
-          <circle id="d-sur" cx="65" cy="65" r="50" fill="none" stroke="#2ECC71" stroke-width="16" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 65 65)" style="transition:all .5s"/>
-          <text x="65" y="60" text-anchor="middle" fill="#888" font-family="DM Mono" font-size="10">SURPLUS</text>
-          <text id="donut-center" x="65" y="75" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="15">—%</text>
+        <svg width="120" height="120" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#2A2A2A" stroke-width="14"/>
+          <circle id="d-mo" cx="60" cy="60" r="46" fill="none" stroke="#4A7CF7" stroke-width="14" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 60 60)" style="transition:all .5s"/>
+          <circle id="d-veh" cx="60" cy="60" r="46" fill="none" stroke="#F39C12" stroke-width="14" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 60 60)" style="transition:all .5s"/>
+          <circle id="d-ff" cx="60" cy="60" r="46" fill="none" stroke="#9B59B6" stroke-width="14" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 60 60)" style="transition:all .5s"/>
+          <circle id="d-sur" cx="60" cy="60" r="46" fill="none" stroke="#2ECC71" stroke-width="14" stroke-dasharray="289" stroke-dashoffset="289" transform="rotate(-90 60 60)" style="transition:all .5s"/>
+          <text x="60" y="56" text-anchor="middle" fill="#F0EEE8" font-family="DM Mono" font-size="9">SURPLUS</text>
+          <text id="d-ctr" x="60" y="70" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="14" font-weight="500">—%</text>
         </svg>
-        <div class="donut-legend">
-          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--blue)"></div><span class="leg-name">Main d'œuvre</span></div><span class="leg-pct" id="leg-mo-pct">—</span><span class="leg-chf" id="leg-mo-chf">—</span></div>
-          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--orange)"></div><span class="leg-name">Véhicule</span></div><span class="leg-pct" id="leg-veh-pct">—</span><span class="leg-chf" id="leg-veh-chf">—</span></div>
-          <div class="leg-item"><div class="leg-left"><div class="leg-dot" style="background:var(--purple)"></div><span class="leg-name">Frais fixes</span></div><span class="leg-pct" id="leg-ff-pct">—</span><span class="leg-chf" id="leg-ff-chf">—</span></div>
-          <div class="leg-item" style="padding-top:6px;border-top:1px solid var(--border)"><div class="leg-left"><div class="leg-dot" style="background:var(--green)"></div><span class="leg-name" style="font-weight:500">Surplus</span></div><span class="leg-pct" id="leg-sur-pct">—</span><span class="leg-chf" id="leg-sur-chf" style="color:var(--green)">—</span></div>
+        <div class="dleg">
+          <div class="dleg-item"><div class="dleg-left"><div class="ddot" style="background:var(--blue)"></div><span class="dname">Main d'œuvre</span></div><span class="dpct" id="l-mop">—%</span><span class="dchf" id="l-moc">—</span></div>
+          <div class="dleg-item"><div class="dleg-left"><div class="ddot" style="background:var(--orange)"></div><span class="dname">Véhicule</span></div><span class="dpct" id="l-vp">—%</span><span class="dchf" id="l-vc">—</span></div>
+          <div class="dleg-item"><div class="dleg-left"><div class="ddot" style="background:var(--purple)"></div><span class="dname">Frais fixes</span></div><span class="dpct" id="l-ffp">—%</span><span class="dchf" id="l-ffc">—</span></div>
+          <div class="dleg-item" style="padding-top:7px;border-top:1px solid var(--border)"><div class="dleg-left"><div class="ddot" style="background:var(--green)"></div><span class="dname" style="font-weight:500">Surplus</span></div><span class="dpct" id="l-sp">—%</span><span class="dchf" id="l-sc" style="color:var(--green)">—</span></div>
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-title">Détail des coûts</div>
-      <div class="bar-list" id="bar-list"></div>
+    <div class="card"><div class="ct">Détail des coûts</div><div class="bar-list" id="bar-list"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="ct">Composition du tarif au km</div>
+    <div class="sbar" id="sbar"></div>
+    <div class="slabs">
+      <div class="slab"><div class="sdot" style="background:var(--blue)"></div>Main d'œuvre</div>
+      <div class="slab"><div class="sdot" style="background:var(--orange)"></div>Véhicule</div>
+      <div class="slab"><div class="sdot" style="background:var(--purple)"></div>Frais fixes</div>
+      <div class="slab"><div class="sdot" style="background:var(--green)"></div>Surplus</div>
     </div>
   </div>
-
-  <div class="card grid-full" style="margin-bottom:12px;">
-    <div class="card-title">Composition du tarif au km</div>
-    <div id="stacked-bar" class="stacked-bar"></div>
-    <div class="stacked-labels">
-      <div class="sl"><div class="sl-dot" style="background:var(--blue)"></div>Main d'œuvre</div>
-      <div class="sl"><div class="sl-dot" style="background:var(--orange)"></div>Véhicule</div>
-      <div class="sl"><div class="sl-dot" style="background:var(--purple)"></div>Frais fixes</div>
-      <div class="sl"><div class="sl-dot" style="background:var(--green)"></div>Surplus</div>
-    </div>
-  </div>
-
   <div class="grid2">
     <div class="card">
-      <div class="card-title">Manutention absorbée</div>
+      <div class="ct">Manutention absorbée</div>
       <div class="gauge-wrap">
-        <svg width="90" height="90" viewBox="0 0 90 90">
-          <circle cx="45" cy="45" r="36" fill="none" stroke="#2A2A2A" stroke-width="7"/>
-          <circle id="gauge-arc" cx="45" cy="45" r="36" fill="none" stroke="#2ECC71" stroke-width="7" stroke-dasharray="226.2" stroke-dashoffset="226.2" stroke-linecap="round" transform="rotate(-90 45 45)" style="transition:all .5s"/>
-          <text id="gauge-text" x="45" y="40" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="12" font-weight="500">—</text>
-          <text x="45" y="54" text-anchor="middle" fill="#666" font-family="DM Sans" font-size="8">heures</text>
+        <svg width="84" height="84" viewBox="0 0 84 84">
+          <circle cx="42" cy="42" r="33" fill="none" stroke="#2A2A2A" stroke-width="6"/>
+          <circle id="g-arc" cx="42" cy="42" r="33" fill="none" stroke="#2ECC71" stroke-width="6" stroke-dasharray="207.3" stroke-dashoffset="207.3" stroke-linecap="round" transform="rotate(-90 42 42)" style="transition:all .5s"/>
+          <text id="g-txt" x="42" y="39" text-anchor="middle" fill="#2ECC71" font-family="DM Mono" font-size="12" font-weight="500">—</text>
+          <text x="42" y="51" text-anchor="middle" fill="#666" font-family="DM Sans" font-size="6">heures</text>
         </svg>
-        <div class="gauge-desc" id="manut-desc">—</div>
+        <div class="gauge-desc">Surplus de <strong id="g-sur">—</strong> CHF<br>couvre <strong id="g-h" style="color:var(--green)">—</strong> h de manutention<br>pour <strong id="g-nb">—</strong> pers.</div>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Statut</div>
-      <div class="stat-row"><span class="stat-label">Rentabilité</span><span id="status-badge" class="status-badge">—</span></div>
-      <div class="stat-row"><span class="stat-label">Tarif min. conseillé</span><span class="stat-val" id="s-min">—</span></div>
-      <div class="stat-row"><span class="stat-label">Marge sur coût réel</span><span class="stat-val" id="s-marge" style="color:var(--green)">—</span></div>
-      <div class="stat-row"><span class="stat-label">Coût par km</span><span class="stat-val" id="s-cout-km">—</span></div>
-      <div class="stat-row"><span class="stat-label">Durée estimée</span><span class="stat-val" id="s-duree">—</span></div>
+      <div class="ct">Statut</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Rentabilité</span><span class="sbadge" id="st-b"><div class="sdot2"></div><span id="st-t">—</span></span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--muted)">Tarif min. rentable</span><span style="font-family:var(--mono);font-size:11px" id="st-min">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--muted)">Coût réel / km</span><span style="font-family:var(--mono);font-size:11px" id="st-ck">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;color:var(--muted)">Durée estimée</span><span style="font-family:var(--mono);font-size:11px" id="st-d">—</span></div>
+        <div style="height:1px;background:var(--border)"></div>
+        <button class="btn btn-green" style="justify-content:center" onclick="saveEst()">💾 Sauvegarder ce chantier</button>
+      </div>
     </div>
   </div>
-
 </div>
 
-<!-- ══ PAGE POST-CHANTIER ═══════════════════════════════════════════════════ -->
-<div class="page" id="page-post">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-    <div>
-      <div style="font-size:16px;font-weight:500;" id="post-titre">Post-chantier</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:2px;">Remplis les valeurs réelles après la prestation</div>
-    </div>
-    <button class="btn btn-accent" onclick="saveChantier()">💾 Sauvegarder</button>
-  </div>
-
-  <div class="grid2">
-    <div class="card">
-      <div class="section-title">Équipe & durée réelle</div>
-      <div class="field">
-        <label>Heures totales travaillées (toute l'équipe)</label>
-        <div class="inp-unit"><input id="r-heures" class="inp" type="number" value="0" step="0.5" oninput="calcPost()"><span>h</span></div>
+<!-- POST-CHANTIER -->
+<div class="tab-panel" id="panel-post">
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:14px;font-weight:500" id="p-nom">Chantier non nommé</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px" id="p-recap">Estimation : — km · — CHF HT</div>
       </div>
-      <div class="field">
-        <label>Nombre de déménageurs réels</label>
-        <div class="inp-unit"><input id="r-nb" class="inp" type="number" value="2" min="1" oninput="calcPost()"><span>pers.</span></div>
-      </div>
-      <div class="field">
-        <label>Coût horaire payé / personne</label>
-        <div class="inp-unit"><input id="r-cout-h" class="inp" type="number" value="40" oninput="calcPost()"><span>CHF/h</span></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">Véhicule & frais réels</div>
-      <div class="field">
-        <label>Litres d'essence réellement consommés</label>
-        <div class="inp-unit"><input id="r-litres" class="inp" type="number" value="0" step="0.5" oninput="calcPost()"><span>L</span></div>
-      </div>
-      <div class="field">
-        <label>Prix du carburant payé</label>
-        <div class="inp-unit"><input id="r-prix-c" class="inp" type="number" value="2.00" step="0.05" oninput="calcPost()"><span>CHF/L</span></div>
-      </div>
-      <div class="field">
-        <label>Location camion (si applicable)</label>
-        <div class="inp-unit"><input id="r-loc" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">Suppléments facturés</div>
-      <div class="field-row">
-        <div class="field">
-          <label>Étages</label>
-          <div class="inp-unit"><input id="r-etages" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-        </div>
-        <div class="field">
-          <label>Volume important</label>
-          <div class="inp-unit"><input id="r-volume" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Manutention prolongée</label>
-          <div class="inp-unit"><input id="r-manut" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-        </div>
-        <div class="field">
-          <label>Autres suppléments</label>
-          <div class="inp-unit"><input id="r-autres" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="section-title">Commercial</div>
-      <div class="field">
-        <label>Rabais accordé au client</label>
-        <div class="inp-unit"><input id="r-rabais" class="inp" type="number" value="0" oninput="calcPost()"><span>CHF</span></div>
-      </div>
-      <div class="field">
-        <label>Kilomètres réellement parcourus</label>
-        <div class="inp-unit"><input id="r-km" class="inp" type="number" value="0" oninput="calcPost()"><span>km</span></div>
-      </div>
+      <span class="sbadge so"><div class="sdot2"></div>À compléter</span>
     </div>
   </div>
-
-  <div class="metrics" style="margin-top:12px;">
-    <div class="metric"><div class="metric-label">Total facturé réel HT</div><div class="metric-val" id="r-total-ht" style="color:var(--blue)">—</div><div class="metric-sub">recettes + suppléments - rabais</div></div>
-    <div class="metric"><div class="metric-label">Total coûts réels</div><div class="metric-val" id="r-total-cout" style="color:var(--red)">—</div><div class="metric-sub">MO + carburant + location</div></div>
-    <div class="metric"><div class="metric-label">Bénéfice net réel</div><div class="metric-val" id="r-benef">—</div><div class="metric-sub">facturé - coûts</div></div>
-    <div class="metric"><div class="metric-label">Revenu horaire réel</div><div class="metric-val" id="r-revenu-h" style="color:var(--accent)">—</div><div class="metric-sub">bénéfice ÷ heures</div></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="slabel">Résultats réels du chantier</div>
+    <div class="igrid">
+      <div class="ifield"><label class="ilabel">Heures totales / personne</label><div class="iwrap"><input class="inp2" id="r-h" type="number" placeholder="ex. 7.5" step="0.25" oninput="calcPost()"><span class="iunit">h/pers.</span></div><div class="inote">Conduite + chargement + déchargement</div></div>
+      <div class="ifield"><label class="ilabel">Litres d'essence consommés</label><div class="iwrap"><input class="inp2" id="r-l" type="number" placeholder="ex. 42" step="0.5" oninput="calcPost()"><span class="iunit">litres</span></div><div class="inote">Relevé à la pompe</div></div>
+      <div class="ifield"><label class="ilabel">Km réellement parcourus</label><div class="iwrap"><input class="inp2" id="r-km" type="number" placeholder="Si différent" oninput="calcPost()"><span class="iunit">km</span></div></div>
+      <div class="ifield"><label class="ilabel">Prix carburant payé</label><div class="iwrap"><input class="inp2" id="r-pc" type="number" value="2.00" step="0.05" oninput="calcPost()"><span class="iunit">CHF/L</span></div></div>
+      <div class="ifield"><label class="ilabel">Suppléments facturés</label><div class="iwrap"><input class="inp2" id="r-sup" type="number" value="0" oninput="calcPost()"><span class="iunit">CHF</span></div><div class="inote">Étages, volume, manutention…</div></div>
+      <div class="ifield"><label class="ilabel">Rabais accordé</label><div class="iwrap"><input class="inp2" id="r-rab" type="number" value="0" oninput="calcPost()"><span class="iunit">CHF</span></div></div>
+      <div class="ifield"><label class="ilabel">Location camion</label><div class="iwrap"><input class="inp2" id="r-loc" type="number" value="0" oninput="calcPost()"><span class="iunit">CHF</span></div></div>
+      <div class="ifield"><label class="ilabel">Nombre de déménageurs réel</label><div class="iwrap"><input class="inp2" id="r-nb" type="number" value="2" min="1" oninput="calcPost()"><span class="iunit">pers.</span></div></div>
+    </div>
   </div>
-
+  <div class="hero" style="margin-bottom:14px">
+    <div class="hero-card"><div class="hl">Salaires payés</div><div class="hval red" id="pr-sal" style="font-size:22px">—</div><div class="hsub" id="pr-sals">—</div></div>
+    <div class="hero-card"><div class="hl">Carburant réel</div><div class="hval" id="pr-carb" style="font-size:22px;color:var(--orange)">—</div><div class="hsub" id="pr-carbs">—</div></div>
+    <div class="hero-card ac"><div class="hl" style="color:var(--accent)">Recettes TTC réelles</div><div class="hval gold" id="pr-rec" style="font-size:22px">—</div><div class="hsub" id="pr-recs">—</div></div>
+    <div class="hero-card"><div class="hl">Marge réelle</div><div class="hval" id="pr-mar" style="font-size:22px">—</div><div class="hsub" id="pr-marp">—</div></div>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-green" style="flex:1;justify-content:center;padding:13px" onclick="savePost()">💾 Sauvegarder le post-chantier</button>
+    <button class="btn btn-primary" style="flex:1;justify-content:center;padding:13px" onclick="switchTab('comparaison')">→ Voir la comparaison</button>
+  </div>
 </div>
 
-<!-- ══ PAGE COMPARAISON ══════════════════════════════════════════════════════ -->
-<div class="page" id="page-comparaison">
-
-  <div style="margin-bottom:20px;">
-    <div style="font-size:16px;font-weight:500;" id="comp-titre">Comparaison Estimation vs Réalité</div>
-    <div style="font-size:12px;color:var(--muted);margin-top:2px;">Les écarts positifs (vert) = tu as fait mieux que prévu</div>
-  </div>
-
-  <div class="comp-hero">
-    <div class="comp-card">
-      <div class="comp-label">Écart sur les recettes</div>
-      <div class="comp-val" id="c-ecart-rec">—</div>
-      <div class="comp-sub" id="c-ecart-rec-sub">—</div>
+<!-- COMPARAISON -->
+<div class="tab-panel" id="panel-comparaison">
+  <div id="comp-empty" class="empty"><div class="empty-icon">📊</div><div class="empty-title">Aucune donnée à comparer</div><div class="empty-sub">Complète l'estimation et le post-chantier.</div></div>
+  <div id="comp-content" style="display:none">
+    <div class="verdict" id="verdict">
+      <div><div class="vi-label">Résultat</div><div class="vi-val" id="v-res">—</div></div>
+      <div><div class="vi-label">Écart de marge</div><div class="vi-val" id="v-delta">—</div></div>
+      <div><div class="vi-label">Revenu horaire réel</div><div class="vi-val" id="v-revh">—</div></div>
     </div>
-    <div class="comp-card">
-      <div class="comp-label">Écart sur les coûts</div>
-      <div class="comp-val" id="c-ecart-cout">—</div>
-      <div class="comp-sub" id="c-ecart-cout-sub">—</div>
+    <div class="card" style="margin-bottom:14px">
+      <div class="ct">Estimation vs Réel</div>
+      <table class="comp-table">
+        <thead><tr><th>Poste</th><th style="text-align:right;color:var(--blue)">Estimation</th><th style="text-align:right;color:var(--orange)">Réel</th><th style="text-align:right">Écart</th></tr></thead>
+        <tbody id="comp-body"></tbody>
+      </table>
     </div>
-    <div class="comp-card" style="border-color:var(--accent)">
-      <div class="comp-label" style="color:var(--accent)">Écart bénéfice final</div>
-      <div class="comp-val" id="c-ecart-benef">—</div>
-      <div class="comp-sub" id="c-ecart-benef-sub">—</div>
+    <div class="grid2">
+      <div class="card"><div class="ct">Coûts comparés</div><div id="comp-bars"></div></div>
+      <div class="card"><div class="ct">Analyse</div><div id="comp-anal" style="display:flex;flex-direction:column;gap:10px;font-size:12px;color:var(--muted);line-height:1.6"></div></div>
     </div>
   </div>
-
-  <div class="card" style="margin-bottom:12px;">
-    <div class="card-title">Tableau comparatif détaillé</div>
-    <table class="comp-table">
-      <thead>
-        <tr>
-          <th style="text-align:left">Poste</th>
-          <th>Estimation</th>
-          <th>Réalité</th>
-          <th>Écart CHF</th>
-          <th>Écart %</th>
-        </tr>
-      </thead>
-      <tbody id="comp-tbody"></tbody>
-    </table>
-  </div>
-
-  <div class="grid2">
-    <div class="card">
-      <div class="card-title">Verdict chantier</div>
-      <div id="verdict-content">
-        <div class="stat-row"><span class="stat-label">Statut global</span><span id="v-statut" class="status-badge">—</span></div>
-        <div class="stat-row"><span class="stat-label">Bénéfice estimé</span><span class="stat-val" id="v-benef-est">—</span></div>
-        <div class="stat-row"><span class="stat-label">Bénéfice réel</span><span class="stat-val" id="v-benef-reel">—</span></div>
-        <div class="stat-row"><span class="stat-label">Revenu horaire réel</span><span class="stat-val" id="v-rev-h" style="color:var(--accent)">—</span></div>
-        <div class="stat-row"><span class="stat-label">Km estimés / réels</span><span class="stat-val" id="v-km">—</span></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">Leçons pour la suite</div>
-      <div id="lessons-content" style="font-size:12px;color:var(--muted);line-height:1.7;">—</div>
-    </div>
-  </div>
-
 </div>
 
-<!-- ══ PAGE HISTORIQUE ═══════════════════════════════════════════════════════ -->
-<div class="page" id="page-historique">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-    <div style="font-size:16px;font-weight:500;">Historique des chantiers</div>
-    <button class="btn btn-ghost btn-sm" onclick="newChantier()">+ Nouveau chantier</button>
+<!-- HISTORIQUE -->
+<div class="tab-panel" id="panel-historique">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <div style="font-size:12px;color:var(--muted)" id="h-count">— chantier(s)</div>
+    <button class="btn btn-red" onclick="clearHist()">🗑 Effacer l'historique</button>
   </div>
-
-  <div class="history-list" id="history-list">
-    <div class="empty-state">Aucun chantier sauvegardé.<br>Commence par remplir l'estimation et clique sur "Sauvegarder".</div>
-  </div>
-
+  <div class="hlist" id="hlist"></div>
 </div>
-
 </main>
 
-<!-- MODAL PARAMÈTRES -->
-<div class="overlay" id="overlay" onclick="closeModalOut(event)">
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOut(event)">
   <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Paramètres</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="param-section">
-      <div class="param-section-title">Équipe & tarification</div>
-      <div class="param-grid">
-        <div class="param-field"><label class="param-label">Tarif facturé au km</label><div class="param-wrap"><input class="param-inp" id="p-tarif" type="number" value="2.20" step="0.05" oninput="calcEst()"><span class="param-unit">CHF/km</span></div></div>
-        <div class="param-field"><label class="param-label">Nombre de déménageurs</label><div class="param-wrap"><input class="param-inp" id="p-nb" type="number" value="2" min="1" oninput="calcEst()"><span class="param-unit">pers.</span></div></div>
-        <div class="param-field"><label class="param-label">Coût horaire / personne</label><div class="param-wrap"><input class="param-inp" id="p-cout" type="number" value="40" oninput="calcEst()"><span class="param-unit">CHF/h</span></div></div>
-        <div class="param-field"><label class="param-label">Vitesse moyenne</label><div class="param-wrap"><input class="param-inp" id="p-vit" type="number" value="85" oninput="calcEst()"><span class="param-unit">km/h</span></div></div>
-      </div>
-    </div>
-    <div class="param-section">
-      <div class="param-section-title">Carburant</div>
-      <div class="param-grid">
-        <div class="param-field"><label class="param-label">Consommation</label><div class="param-wrap"><input class="param-inp" id="p-conso" type="number" value="10" step="0.5" oninput="calcEst()"><span class="param-unit">L/100km</span></div></div>
-        <div class="param-field"><label class="param-label">Prix carburant</label><div class="param-wrap"><input class="param-inp" id="p-prix-c" type="number" value="2.00" step="0.05" oninput="calcEst()"><span class="param-unit">CHF/L</span></div></div>
-      </div>
-    </div>
-    <div class="param-section">
-      <div class="param-section-title">Véhicule</div>
-      <div class="param-grid">
-        <div class="param-field"><label class="param-label">Valeur d'achat camion</label><div class="param-wrap"><input class="param-inp" id="p-cam" type="number" value="16400" oninput="calcEst()"><span class="param-unit">CHF</span></div></div>
-        <div class="param-field"><label class="param-label">Durée amortissement</label><div class="param-wrap"><input class="param-inp" id="p-amort" type="number" value="3" oninput="calcEst()"><span class="param-unit">ans</span></div></div>
-        <div class="param-field"><label class="param-label">Km annuels estimés</label><div class="param-wrap"><input class="param-inp" id="p-km-an" type="number" value="50000" oninput="calcEst()"><span class="param-unit">km/an</span></div></div>
-        <div class="param-field"><label class="param-label">Assurance annuelle</label><div class="param-wrap"><input class="param-inp" id="p-assur" type="number" value="3000" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
-        <div class="param-field"><label class="param-label">Vignette annuelle</label><div class="param-wrap"><input class="param-inp" id="p-vign" type="number" value="40" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
-        <div class="param-field"><label class="param-label">Entretien annuel</label><div class="param-wrap"><input class="param-inp" id="p-entr" type="number" value="1500" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
-        <div class="param-field full"><label class="param-label">Location camion (sinon 0)</label><div class="param-wrap"><input class="param-inp" id="p-loc" type="number" value="0" oninput="calcEst()"><span class="param-unit">CHF total</span></div></div>
-      </div>
-    </div>
-    <div class="param-section">
-      <div class="param-section-title">Frais fixes</div>
-      <div class="param-grid">
-        <div class="param-field"><label class="param-label">RC professionnelle</label><div class="param-wrap"><input class="param-inp" id="p-rc" type="number" value="355" oninput="calcEst()"><span class="param-unit">CHF/an</span></div></div>
-        <div class="param-field"><label class="param-label">Téléphone</label><div class="param-wrap"><input class="param-inp" id="p-tel" type="number" value="35" oninput="calcEst()"><span class="param-unit">CHF/mois</span></div></div>
-      </div>
-    </div>
-    <button class="btn btn-accent" style="width:100%;justify-content:center;padding:12px;" onclick="closeModal()">Appliquer ✓</button>
+    <div class="mh"><div class="mtitle">Paramètres</div><button class="mclose" onclick="closeModal()">✕</button></div>
+    <div class="psec"><div class="pstitle">Équipe & tarification</div><div class="pgrid">
+      <div class="pfield"><label class="plabel">Tarif / km</label><div class="pinwrap"><input class="pinput" id="p-tarif" type="number" value="2.20" step="0.05" oninput="calc()"><span class="punit">CHF/km</span></div></div>
+      <div class="pfield"><label class="plabel">Déménageurs</label><div class="pinwrap"><input class="pinput" id="p-nb" type="number" value="2" min="1" oninput="calc()"><span class="punit">pers.</span></div></div>
+      <div class="pfield"><label class="plabel">Coût horaire / pers.</label><div class="pinwrap"><input class="pinput" id="p-cout" type="number" value="40" oninput="calc()"><span class="punit">CHF/h</span></div></div>
+      <div class="pfield"><label class="plabel">Vitesse moyenne</label><div class="pinwrap"><input class="pinput" id="p-vit" type="number" value="85" oninput="calc()"><span class="punit">km/h</span></div></div>
+    </div></div>
+    <div class="psec"><div class="pstitle">Carburant</div><div class="pgrid">
+      <div class="pfield"><label class="plabel">Consommation</label><div class="pinwrap"><input class="pinput" id="p-conso" type="number" value="10" step="0.5" oninput="calc()"><span class="punit">L/100km</span></div></div>
+      <div class="pfield"><label class="plabel">Prix carburant</label><div class="pinwrap"><input class="pinput" id="p-prixc" type="number" value="2.00" step="0.05" oninput="calc()"><span class="punit">CHF/L</span></div></div>
+    </div></div>
+    <div class="psec"><div class="pstitle">Véhicule</div><div class="pgrid">
+      <div class="pfield"><label class="plabel">Valeur camion</label><div class="pinwrap"><input class="pinput" id="p-cam" type="number" value="16400" oninput="calc()"><span class="punit">CHF</span></div></div>
+      <div class="pfield"><label class="plabel">Amortissement</label><div class="pinwrap"><input class="pinput" id="p-amort" type="number" value="3" oninput="calc()"><span class="punit">ans</span></div></div>
+      <div class="pfield"><label class="plabel">Km / an</label><div class="pinwrap"><input class="pinput" id="p-kman" type="number" value="50000" oninput="calc()"><span class="punit">km</span></div></div>
+      <div class="pfield"><label class="plabel">Assurance / an</label><div class="pinwrap"><input class="pinput" id="p-assur" type="number" value="3000" oninput="calc()"><span class="punit">CHF</span></div></div>
+      <div class="pfield"><label class="plabel">Vignette / an</label><div class="pinwrap"><input class="pinput" id="p-vign" type="number" value="40" oninput="calc()"><span class="punit">CHF</span></div></div>
+      <div class="pfield"><label class="plabel">Entretien / an</label><div class="pinwrap"><input class="pinput" id="p-entr" type="number" value="1500" oninput="calc()"><span class="punit">CHF</span></div></div>
+      <div class="pfield full"><label class="plabel">Location camion (0 si le tien)</label><div class="pinwrap"><input class="pinput" id="p-loc" type="number" value="0" oninput="calc()"><span class="punit">CHF</span></div></div>
+    </div></div>
+    <div class="psec"><div class="pstitle">Frais fixes</div><div class="pgrid">
+      <div class="pfield"><label class="plabel">RC pro / an</label><div class="pinwrap"><input class="pinput" id="p-rc" type="number" value="355" oninput="calc()"><span class="punit">CHF</span></div></div>
+      <div class="pfield"><label class="plabel">Téléphone / mois</label><div class="pinwrap"><input class="pinput" id="p-tel" type="number" value="35" oninput="calc()"><span class="punit">CHF</span></div></div>
+    </div></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center;padding:13px" onclick="closeModal()">Appliquer ✓</button>
   </div>
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
-const fmt = (n,d=2) => n.toLocaleString('fr-CH',{minimumFractionDigits:d,maximumFractionDigits:d});
-const fmtH = h => { const hrs=Math.floor(h); const min=Math.round((h-hrs)*60); return hrs>0?`${hrs}h${min>0?String(min).padStart(2,'0'):''}min`:`${min}min`; };
-const get = id => parseFloat($(id).value)||0;
+const $=id=>document.getElementById(id);
+const fmt=(n,d=2)=>n.toLocaleString("fr-CH",{minimumFractionDigits:d,maximumFractionDigits:d});
+const fmtH=h=>{const hrs=Math.floor(h),min=Math.round((h-hrs)*60);return hrs>0?hrs+"h"+(min>0?String(min).padStart(2,"0"):""):min+"min";};
+const g=id=>parseFloat($(id).value)||0;
+let EST=null,POST=null;
 
-let currentData = { est:{}, post:{} };
-let chantiers = JSON.parse(localStorage.getItem('hilario-chantiers')||'[]');
-
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  $('page-'+name).classList.add('active');
-  $('tab-'+name).classList.add('active');
-  if(name==='comparaison') calcComp();
-  if(name==='historique') renderHistory();
+function switchTab(name){
+  const names=["estimation","post","comparaison","historique"];
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",names[i]===name));
+  document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));
+  $("panel-"+name).classList.add("active");
+  if(name==="post")updatePostHeader();
+  if(name==="comparaison")buildComp();
+  if(name==="historique")buildHist();
 }
 
-function updateBadges() {
-  const nom = $('chantier-nom').value||'Sans nom';
-  $('post-titre').textContent = 'Post-chantier — ' + nom;
-  $('comp-titre').textContent = 'Comparaison — ' + nom;
-}
-
-// ── ESTIMATION ────────────────────────────────────────────────────────────────
-function calcEst() {
-  const km=get('inp-km'), tarif=get('p-tarif'), nb=get('p-nb'), cout=get('p-cout'), vit=get('p-vit');
-  const conso=get('p-conso'), prixC=get('p-prix-c'), cam=get('p-cam'), amort=get('p-amort');
-  const kmAn=get('p-km-an'), assur=get('p-assur'), vign=get('p-vign'), entr=get('p-entr');
-  const loc=get('p-loc'), rc=get('p-rc'), tel=get('p-tel');
-
-  const rec=km*tarif, dur=vit>0?km/vit:0;
-  const cMo=nb*cout*dur, cCarb=km*(conso/100)*prixC;
+function calc(){
+  const km=g("inp-km"),tarif=g("p-tarif"),nb=g("p-nb"),cout=g("p-cout"),vit=g("p-vit");
+  const conso=g("p-conso"),prixC=g("p-prixc"),cam=g("p-cam"),amort=g("p-amort");
+  const kmAn=g("p-kman"),assur=g("p-assur"),vign=g("p-vign"),entr=g("p-entr");
+  const loc=g("p-loc"),rc=g("p-rc"),tel=g("p-tel");
+  const rec=km*tarif,dur=vit>0?km/vit:0;
+  const cMo=nb*cout*dur;
+  const cCarb=km*(conso/100)*prixC;
   const cAmort=kmAn>0&&amort>0?km*(cam/(amort*kmAn)):0;
-  const cAssur=kmAn>0?km*(assur/kmAn):0, cVign=kmAn>0?km*(vign/kmAn):0;
-  const cEntr=kmAn>0?km*(entr/kmAn):0, cLoc=loc;
-  const cVeh=cCarb+cAmort+cAssur+cVign+cEntr+cLoc;
-  const cRc=kmAn>0?km*(rc/kmAn):0, cTel=kmAn>0?km*((tel*12)/kmAn):0;
-  const cFf=cRc+cTel, cTot=cMo+cVeh+cFf, surplus=rec-cTot;
-  const ttc=rec*1.081, coutKm=km>0?cTot/km:0;
-  const pMo=rec>0?cMo/rec:0, pVeh=rec>0?cVeh/rec:0, pFf=rec>0?cFf/rec:0;
-  const pSur=rec>0?surplus/rec:0, manut=nb*cout>0?surplus/(nb*cout):0;
-
-  currentData.est = {rec,surplus,ttc,cTot,cMo,cVeh,cFf,km,dur,tarif,nb,cout,coutKm,manut,pMo,pVeh,pFf,pSur};
-
-  $('hero-duration').textContent = dur>0?`${fmtH(dur)} de trajet estimé`:'—';
-  $('hero-rec').textContent = rec>0?fmt(rec):'—';
-  $('hero-tarif-info').textContent = `${fmt(tarif)} CHF/km facturé`;
-  const se=$('hero-surplus'); se.textContent=rec>0?fmt(surplus):'—';
-  se.style.color=surplus>=0?'var(--green)':'var(--red)';
-  $('hero-surplus-pct').textContent=rec>0?`${fmt(pSur*100,1)}% du tarif`:'—';
-  $('hero-ttc').textContent=rec>0?fmt(ttc):'—';
-  $('hero-ttc-sub').textContent=rec>0?`HT ${fmt(rec)} + TVA ${fmt(rec*0.081)}`:'TVA 8.1% incluse';
-
-  $('m-cout-km').textContent=rec>0?fmt(coutKm)+' CHF':'—';
-  $('m-tarif-km').textContent='vs '+fmt(tarif)+' facturé';
-  $('m-mo').textContent=rec>0?fmt(cMo)+' CHF':'—';
-  $('m-mo-pct').textContent=rec>0?fmt(pMo*100,1)+'%':'—';
-  $('m-veh').textContent=rec>0?fmt(cVeh)+' CHF':'—';
-  $('m-veh-pct').textContent=rec>0?fmt(pVeh*100,1)+'%':'—';
-  $('m-manut').textContent=rec>0?fmtH(Math.max(0,manut)):'—';
-
-  const C=314.2;
+  const cAssur=kmAn>0?km*(assur/kmAn):0;
+  const cVign=kmAn>0?km*(vign/kmAn):0;
+  const cEntr=kmAn>0?km*(entr/kmAn):0;
+  const cVeh=cCarb+cAmort+cAssur+cVign+cEntr+loc;
+  const cRc=kmAn>0?km*(rc/kmAn):0;
+  const cTel=kmAn>0?km*((tel*12)/kmAn):0;
+  const cFf=cRc+cTel,cTot=cMo+cVeh+cFf,sur=rec-cTot,ttc=rec*1.081;
+  const pMo=rec>0?cMo/rec:0,pVeh=rec>0?cVeh/rec:0,pFf=rec>0?cFf/rec:0,pSur=rec>0?sur/rec:0;
+  const manut=nb*cout>0?sur/(nb*cout):0;
+  EST={km,tarif,nb,cout,vit,rec,dur,cMo,cCarb,cVeh,cFf,cTot,sur,ttc,nom:$("chantier-nom").value||"Chantier sans nom"};
+  $("hero-dur").textContent=dur>0?fmtH(dur)+" de trajet estimé":"—";
+  $("h-rec").textContent=rec>0?fmt(rec):"—";
+  $("h-ti").textContent=fmt(tarif)+" CHF/km";
+  $("h-ttc").textContent=rec>0?fmt(ttc):"—";
+  $("h-ttcs").textContent=rec>0?"HT "+fmt(rec)+" + TVA "+fmt(rec*0.081):"TVA 8.1% incluse";
+  const se=$("m-sur");se.textContent=rec>0?fmt(sur)+" CHF":"—";se.style.color=sur>=0?"var(--green)":"var(--red)";
+  $("m-surp").textContent=rec>0?fmt(pSur*100,1)+"% du tarif":"—";
+  $("m-mo").textContent=rec>0?fmt(cMo)+" CHF":"—";$("m-mop").textContent=rec>0?fmt(pMo*100,1)+"%":"—";
+  $("m-veh").textContent=rec>0?fmt(cVeh)+" CHF":"—";$("m-vehp").textContent=rec>0?fmt(pVeh*100,1)+"%":"—";
+  $("m-man").textContent=rec>0?fmtH(Math.max(0,manut)):"—";
+  const C=289;
   if(rec>0){
     const sMo=pMo*C,sVeh=pVeh*C,sFf=pFf*C,sSur=Math.max(0,pSur)*C;
-    $('d-mo').style.strokeDasharray=`${sMo} ${C-sMo}`; $('d-mo').style.strokeDashoffset='0';
-    $('d-veh').style.strokeDasharray=`${sVeh} ${C-sVeh}`; $('d-veh').style.strokeDashoffset=`${C-sMo}`;
-    $('d-ff').style.strokeDasharray=`${sFf} ${C-sFf}`; $('d-ff').style.strokeDashoffset=`${C-sMo-sVeh}`;
-    $('d-sur').style.strokeDasharray=`${sSur} ${C-sSur}`; $('d-sur').style.strokeDashoffset=`${C-sMo-sVeh-sFf}`;
-    $('donut-center').textContent=fmt(Math.max(0,pSur)*100,0)+'%';
-    $('donut-center').style.fill=surplus>=0?'#2ECC71':'#E74C3C';
+    $("d-mo").style.strokeDasharray=sMo+" "+(C-sMo);$("d-mo").style.strokeDashoffset="0";
+    $("d-veh").style.strokeDasharray=sVeh+" "+(C-sVeh);$("d-veh").style.strokeDashoffset=C-sMo;
+    $("d-ff").style.strokeDasharray=sFf+" "+(C-sFf);$("d-ff").style.strokeDashoffset=C-sMo-sVeh;
+    $("d-sur").style.strokeDasharray=sSur+" "+(C-sSur);$("d-sur").style.strokeDashoffset=C-sMo-sVeh-sFf;
+    $("d-ctr").textContent=fmt(Math.max(0,pSur)*100,0)+"%";$("d-ctr").style.fill=sur>=0?"#2ECC71":"#E74C3C";
   }
-
-  const f=v=>rec>0?fmt(v)+' CHF':'—', fp=p=>rec>0?fmt(p*100,1)+'%':'—';
-  $('leg-mo-pct').textContent=fp(pMo); $('leg-mo-chf').textContent=f(cMo);
-  $('leg-veh-pct').textContent=fp(pVeh); $('leg-veh-chf').textContent=f(cVeh);
-  $('leg-ff-pct').textContent=fp(pFf); $('leg-ff-chf').textContent=f(cFf);
-  $('leg-sur-pct').textContent=fp(Math.max(0,pSur));
-  $('leg-sur-chf').textContent=rec>0?fmt(Math.max(0,surplus))+' CHF':'—';
-  $('leg-sur-chf').style.color=surplus>=0?'var(--green)':'var(--red)';
-
+  const fv=v=>rec>0?fmt(v)+" CHF":"—",fp=p=>rec>0?fmt(p*100,1)+"%":"—";
+  $("l-mop").textContent=fp(pMo);$("l-moc").textContent=fv(cMo);
+  $("l-vp").textContent=fp(pVeh);$("l-vc").textContent=fv(cVeh);
+  $("l-ffp").textContent=fp(pFf);$("l-ffc").textContent=fv(cFf);
+  $("l-sp").textContent=fp(Math.max(0,pSur));
+  $("l-sc").textContent=rec>0?fmt(Math.max(0,sur))+" CHF":"—";$("l-sc").style.color=sur>=0?"var(--green)":"var(--red)";
   const items=[
-    {name:"Main d'œuvre",v:cMo,c:'#4A7CF7',note:`${nb} pers. × ${fmt(cout)} CHF/h × ${fmtH(dur)}`},
-    {name:'Carburant',v:cCarb,c:'#F39C12',note:`${conso}L/100km × ${fmt(prixC)} CHF/L`},
-    {name:'Amortissement',v:cAmort,c:'#E67E22'},
-    {name:'Assurance',v:cAssur,c:'#D35400'},
-    {name:'Vignette',v:cVign,c:'#CA6F1E'},
-    {name:'Entretien',v:cEntr,c:'#BA4A00'},
-    {name:'RC pro',v:cRc,c:'#9B59B6'},
-    {name:'Téléphone',v:cTel,c:'#8E44AD'},
+    {name:"Main d'œuvre",v:cMo,c:"#4A7CF7"},{name:"Carburant",v:cCarb,c:"#F39C12"},
+    {name:"Amortissement",v:cAmort,c:"#E67E22"},{name:"Assurance",v:cAssur,c:"#D35400"},
+    {name:"Vignette",v:cVign,c:"#CA6F1E"},{name:"Entretien",v:cEntr,c:"#BA4A00"},
+    {name:"RC pro",v:cRc,c:"#9B59B6"},{name:"Téléphone",v:cTel,c:"#8E44AD"},
   ];
-  if(loc>0) items.splice(1,0,{name:'Location camion',v:cLoc,c:'#E8D5A3'});
-  const maxV=Math.max(...items.map(i=>i.v),1);
-  $('bar-list').innerHTML=items.filter(i=>i.v>0).map(i=>`
-    <div class="bar-item">
-      <div class="bar-header"><span class="bar-name">${i.name}</span><div class="bar-right"><span class="bar-chf">${rec>0?fmt(i.v)+' CHF':'—'}</span><span class="bar-pct">${rec>0?fmt(i.v/rec*100,1)+'%':''}</span></div></div>
-      <div class="bar-track"><div class="bar-fill" style="width:${rec>0?i.v/maxV*100:0}%;background:${i.c}"></div></div>
-    </div>`).join('');
-
-  const pSurPos=Math.max(0,pSur);
-  $('stacked-bar').innerHTML=rec>0?`
-    <div class="stacked-seg" style="width:${pMo*100}%;background:#4A7CF7">${pMo>0.08?fmt(pMo*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pVeh*100}%;background:#F39C12">${pVeh>0.08?fmt(pVeh*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pFf*100}%;background:#9B59B6">${pFf>0.06?fmt(pFf*100,0)+'%':''}</div>
-    <div class="stacked-seg" style="width:${pSurPos*100}%;background:#2ECC71">${pSurPos>0.08?fmt(pSurPos*100,0)+'%':''}</div>`:'';
-
-  const manutH=Math.max(0,manut), maxH=8, gc=226.2;
-  const ratio=Math.min(manutH/maxH,1);
-  $('gauge-arc').style.strokeDashoffset=gc*(1-ratio);
-  $('gauge-arc').style.stroke=manutH>2?'#2ECC71':manutH>1?'#F39C12':'#E74C3C';
-  $('gauge-text').textContent=rec>0?fmtH(manutH):'—';
-  $('gauge-text').style.fill=$('gauge-arc').style.stroke;
-  $('manut-desc').innerHTML=rec>0?`Le surplus de <strong>${fmt(Math.max(0,surplus))} CHF</strong><br>couvre <strong style="color:var(--green)">${fmtH(manutH)}</strong> de manutention<br>pour une équipe de <strong>${nb}</strong> pers.`:'—';
-
-  const minT=km>0?cTot/km:0;
-  $('status-badge').innerHTML=rec>0?`<div class="s-dot"></div>${surplus>=0?'Rentable':'Déficitaire'}`:'—';
-  $('status-badge').className='status-badge '+(surplus>=0?'s-green':'s-red');
-  $('s-min').textContent=rec>0?fmt(minT)+' CHF/km':'—';
-  $('s-marge').textContent=rec>0&&cTot>0?'+'+fmt((surplus/cTot)*100,1)+'%':'—';
-  $('s-cout-km').textContent=rec>0?fmt(coutKm)+' CHF':'—';
-  $('s-duree').textContent=dur>0?fmtH(dur):'—';
+  if(loc>0)items.splice(1,0,{name:"Location",v:loc,c:"#E8D5A3"});
+  const mx=Math.max(...items.map(i=>i.v),1);
+  $("bar-list").innerHTML=items.filter(i=>i.v>0).map(i=>'<div><div class="bh"><span class="bn">'+i.name+'</span><div class="br"><span class="bc">'+(rec>0?fmt(i.v)+" CHF":"—")+'</span><span class="bp">'+(rec>0?fmt(i.v/rec*100,1)+"%":"")+'</span></div></div><div class="btrack"><div class="bfill" style="width:'+(rec>0?i.v/mx*100:0)+'%;background:'+i.c+'"></div></div></div>').join("");
+  const ps=Math.max(0,pSur);
+  $("sbar").innerHTML=rec>0?'<div class="sseg" style="width:'+pMo*100+'%;background:#4A7CF7">'+(pMo>0.08?fmt(pMo*100,0)+"%":"")+'</div><div class="sseg" style="width:'+pVeh*100+'%;background:#F39C12">'+(pVeh>0.08?fmt(pVeh*100,0)+"%":"")+'</div><div class="sseg" style="width:'+pFf*100+'%;background:#9B59B6">'+(pFf>0.06?fmt(pFf*100,0)+"%":"")+'</div><div class="sseg" style="width:'+ps*100+'%;background:#2ECC71">'+(ps>0.08?fmt(ps*100,0)+"%":"")+"</div>":"";
+  const mH=Math.max(0,manut);
+  $("g-arc").style.strokeDashoffset=207.3*(1-Math.min(mH/8,1));
+  $("g-arc").style.stroke=mH>2?"#2ECC71":mH>1?"#F39C12":"#E74C3C";
+  $("g-txt").textContent=rec>0?fmtH(mH):"—";$("g-txt").style.fill=$("g-arc").style.stroke;
+  $("g-sur").textContent=rec>0?fmt(Math.max(0,sur)):"—";$("g-h").textContent=rec>0?fmtH(mH):"—";$("g-nb").textContent=nb;
+  const b=$("st-b"),st=$("st-t");
+  if(rec>0){if(sur>=0){b.className="sbadge sg";st.textContent="Rentable";}else{b.className="sbadge sr";st.textContent="Déficitaire";}}
+  $("st-min").textContent=rec>0?fmt(cTot/km)+" CHF/km":"—";$("st-ck").textContent=rec>0?fmt(cTot/km)+" CHF":"—";$("st-d").textContent=dur>0?fmtH(dur):"—";
 }
 
-// ── POST-CHANTIER ──────────────────────────────────────────────────────────────
-function calcPost() {
-  const heures=get('r-heures'), nb=get('r-nb'), coutH=get('r-cout-h');
-  const litres=get('r-litres'), prixC=get('r-prix-c'), loc=get('r-loc');
-  const etages=get('r-etages'), volume=get('r-volume'), manut=get('r-manut'), autres=get('r-autres');
-  const rabais=get('r-rabais'), kmR=get('r-km');
-  const est=currentData.est;
-
-  const cMoR=nb*heures*coutH, cCarbR=litres*prixC, cTotR=cMoR+cCarbR+loc;
-  const suppl=etages+volume+manut+autres;
-  const recR=(est.rec||0)+suppl-rabais, benefR=recR-cTotR;
-  const revH=heures>0?benefR/heures:0;
-
-  currentData.post={heures,nb,coutH,litres,prixC,loc,etages,volume,manut,autres,rabais,kmR,cMoR,cCarbR,cTotR,suppl,recR,benefR,revH};
-
-  $('r-total-ht').textContent=fmt(recR)+' CHF';
-  $('r-total-ht').style.color=recR>0?'var(--blue)':'var(--red)';
-  $('r-total-cout').textContent=fmt(cTotR)+' CHF';
-  $('r-benef').textContent=fmt(benefR)+' CHF';
-  $('r-benef').style.color=benefR>=0?'var(--green)':'var(--red)';
-  $('r-revenu-h').textContent=heures>0?fmt(revH)+' CHF/h':'—';
+function updatePostHeader(){
+  if(!EST)return;
+  $("p-nom").textContent=EST.nom;$("p-recap").textContent="Estimation : "+EST.km+" km · "+fmt(EST.rec)+" CHF HT";
+  $("r-km").placeholder=EST.km+" (estimation)";$("r-nb").value=EST.nb;
 }
 
-// ── COMPARAISON ────────────────────────────────────────────────────────────────
-function calcComp() {
-  const e=currentData.est, p=currentData.post;
-  if(!e.rec||!p.recR) return;
-
-  const ecartRec=p.recR-e.rec, ecartCout=p.cTotR-e.cTot, ecartBenef=p.benefR-e.surplus;
-
-  const cv=(v,inv=false)=>{const g=inv?(v<=0):(v>=0); return g?'var(--green)':'var(--red)';};
-  const sign=v=>v>=0?'+':'';
-
-  $('c-ecart-rec').textContent=sign(ecartRec)+fmt(ecartRec)+' CHF';
-  $('c-ecart-rec').style.color=cv(ecartRec);
-  $('c-ecart-rec-sub').textContent=e.rec>0?sign(ecartRec/e.rec*100)+fmt(ecartRec/e.rec*100,1)+'% vs estimation':'—';
-
-  $('c-ecart-cout').textContent=sign(ecartCout)+fmt(ecartCout)+' CHF';
-  $('c-ecart-cout').style.color=cv(ecartCout,true);
-  $('c-ecart-cout-sub').textContent=e.cTot>0?sign(ecartCout/e.cTot*100)+fmt(ecartCout/e.cTot*100,1)+'% vs estimation':'—';
-
-  $('c-ecart-benef').textContent=sign(ecartBenef)+fmt(ecartBenef)+' CHF';
-  $('c-ecart-benef').style.color=cv(ecartBenef);
-  $('c-ecart-benef-sub').textContent=e.surplus>0?sign(ecartBenef/e.surplus*100)+fmt(ecartBenef/Math.abs(e.surplus)*100,1)+'% vs estimation':'—';
-
-  const rows=[
-    ['Recettes HT',e.rec,p.recR],
-    ["Main d'œuvre",e.cMo,p.cMoR,true],
-    ['Carburant réel',e.cMo*0,p.cCarbR,true],
-    ['Véhicule total',e.cVeh,p.cTotR-p.cMoR,true],
-    ['Total coûts',e.cTot,p.cTotR,true],
-    ['Surplus / Bénéfice',e.surplus,p.benefR],
-    ['Total client TTC',e.ttc,p.recR*1.081],
-  ];
-
-  $('comp-tbody').innerHTML=rows.map(([label,est,reel,inv=false])=>{
-    const d=reel-est, dp=est!==0?d/Math.abs(est)*100:0;
-    const good=inv?(d<=0):(d>=0);
-    const cls=good?'delta-pos':'delta-neg';
-    return `<tr>
-      <td>${label}</td>
-      <td>${fmt(est)}</td>
-      <td>${fmt(reel)}</td>
-      <td class="${cls}">${sign(d)}${fmt(d)}</td>
-      <td class="${cls}">${sign(dp)}${fmt(dp,1)}%</td>
-    </tr>`;
-  }).join('');
-
-  const ok=p.benefR>=e.surplus;
-  $('v-statut').innerHTML=`<div class="s-dot"></div>${ok?'Mieux que prévu':'En dessous des attentes'}`;
-  $('v-statut').className='status-badge '+(ok?'s-green':'s-red');
-  $('v-benef-est').textContent=fmt(e.surplus)+' CHF'; $('v-benef-est').style.color=e.surplus>=0?'var(--green)':'var(--red)';
-  $('v-benef-reel').textContent=fmt(p.benefR)+' CHF'; $('v-benef-reel').style.color=p.benefR>=0?'var(--green)':'var(--red)';
-  $('v-rev-h').textContent=p.heures>0?fmt(p.revH)+' CHF/h':'—';
-  $('v-km').textContent=e.km+' km estimés → '+p.kmR+' km réels';
-
-  const lessons=[];
-  if(p.cMoR>e.cMo*1.1) lessons.push('⚠ La main d\'œuvre a coûté '+fmt((p.cMoR/e.cMo-1)*100,0)+'% de plus — le chantier a pris plus de temps que prévu.');
-  if(p.cMoR<e.cMo*0.9) lessons.push('✓ L\'équipe a été efficace — '+fmt((1-p.cMoR/e.cMo)*100,0)+'% de gain sur la main d\'œuvre.');
-  if(p.kmR>e.km*1.1) lessons.push('⚠ '+fmt(p.kmR-e.km,0)+' km de plus que prévu — pense à anticiper ce cas dans tes futurs devis.');
-  if(p.suppl>0) lessons.push('✓ Les suppléments ('+fmt(p.suppl)+' CHF) ont amélioré la rentabilité.');
-  if(p.rabais>0) lessons.push('ℹ Rabais accordé de '+fmt(p.rabais)+' CHF — impact sur la marge.');
-  if(p.benefR<0) lessons.push('🔴 Chantier déficitaire — revoir le tarif km ou les conditions du devis.');
-  if(lessons.length===0) lessons.push('✓ Chantier dans les clous — estimation bien calibrée !');
-  $('lessons-content').innerHTML=lessons.join('<br><br>');
+function calcPost(){
+  const h=g("r-h"),litres=g("r-l"),km=g("r-km")||g("inp-km");
+  const pc=g("r-pc"),sup=g("r-sup"),rab=g("r-rab"),loc=g("r-loc"),nb=g("r-nb");
+  const cout=g("p-cout"),tarif=g("p-tarif"),kmAn=g("p-kman"),cam=g("p-cam"),amort=g("p-amort");
+  const assur=g("p-assur"),vign=g("p-vign"),entr=g("p-entr"),rc=g("p-rc"),tel=g("p-tel");
+  const sal=nb*h*cout,carb=litres*pc;
+  const recHT=(km*tarif)+sup-rab,recTTC=recHT*1.081;
+  const cAmort=kmAn>0&&amort>0?km*(cam/(amort*kmAn)):0;
+  const cAssur=kmAn>0?km*(assur/kmAn):0,cVign=kmAn>0?km*(vign/kmAn):0,cEntr=kmAn>0?km*(entr/kmAn):0;
+  const cRc=kmAn>0?km*(rc/kmAn):0,cTel=kmAn>0?km*((tel*12)/kmAn):0;
+  const cTot=sal+carb+loc+cAmort+cAssur+cVign+cEntr+cRc+cTel,marge=recHT-cTot;
+  POST={h,litres,km,pc,sup,rab,loc,nb,sal,carb,recHT,recTTC,cTot,marge};
+  $("pr-sal").textContent=h>0?fmt(sal)+" CHF":"—";$("pr-sal").style.color="var(--red)";
+  $("pr-sals").textContent=h>0?h+"h × "+nb+" × "+cout+" CHF/h":"—";
+  $("pr-carb").textContent=litres>0?fmt(carb)+" CHF":"—";$("pr-carbs").textContent=litres>0?litres+"L × "+fmt(pc)+" CHF/L":"—";
+  $("pr-rec").textContent=recHT>0?fmt(recTTC)+" CHF":"—";$("pr-recs").textContent=recHT>0?"HT "+fmt(recHT)+" CHF":"—";
+  const me=$("pr-mar");me.textContent=recHT>0?fmt(marge)+" CHF":"—";me.style.color=marge>=0?"var(--green)":"var(--red)";
+  $("pr-marp").textContent=recHT>0?fmt(marge/recHT*100,1)+"%":"—";
 }
 
-// ── SAUVEGARDE ─────────────────────────────────────────────────────────────────
-function saveChantier() {
-  const nom=$('chantier-nom').value||'Sans nom — '+new Date().toLocaleDateString('fr-CH');
-  const idx=chantiers.findIndex(c=>c.nom===nom);
-  const entry={nom,date:new Date().toISOString(),est:{...currentData.est},post:{...currentData.post},complete:currentData.post.heures>0};
-  if(idx>=0) chantiers[idx]=entry; else chantiers.unshift(entry);
-  localStorage.setItem('hilario-chantiers',JSON.stringify(chantiers));
-  $('badge-hist').textContent=chantiers.length;
-  $('hist-count').textContent=chantiers.length;
-  alert('✓ Chantier "'+nom+'" sauvegardé !');
+function buildComp(){
+  if(!EST||!POST){$("comp-empty").style.display="block";$("comp-content").style.display="none";return;}
+  $("comp-empty").style.display="none";$("comp-content").style.display="block";
+  const E=EST,P=POST,delta=P.marge-E.sur,pos=delta>=0;
+  $("verdict").className="verdict "+(pos?"pos":"neg");
+  $("v-res").textContent=pos?"✓ Meilleur que prévu":"✗ Moins bien que prévu";$("v-res").style.color=pos?"var(--green)":"var(--red)";
+  $("v-delta").textContent=(pos?"+":"")+fmt(delta)+" CHF";$("v-delta").style.color=pos?"var(--green)":"var(--red)";
+  const revH=P.h>0?P.marge/(P.nb*P.h):0;
+  $("v-revh").textContent=fmt(revH)+" CHF/h";$("v-revh").style.color=revH>0?"var(--green)":"var(--red)";
+  const rows=[["Kilomètres",E.km,P.km,"km",false],["Recettes HT",fmt(E.rec),fmt(P.recHT),"CHF",true],
+    ["Main d'œuvre",fmt(E.cMo),fmt(P.sal),"CHF",false],["Carburant",fmt(E.cCarb),fmt(P.carb),"CHF",false],
+    ["Coûts totaux",fmt(E.cTot),fmt(P.cTot),"CHF",false],["Marge / Surplus",fmt(E.sur),fmt(P.marge),"CHF",true]];
+  $("comp-body").innerHTML=rows.map((row,i)=>{
+    const[label,est,real,unit,hib]=row;
+    const eN=parseFloat(String(est).replace(/[^0-9.-]/g,"")),rN=parseFloat(String(real).replace(/[^0-9.-]/g,""));
+    const d=rN-eN,good=hib?d>=0:d<=0,cls=d===0?"":(good?"dpos":"dneg"),sign=d>0?"+":"";
+    return"<tr class='"+(i===rows.length-1?"trow":"")+"'><td>"+label+"</td><td class='est' style='text-align:right'>"+est+" "+unit+"</td><td class='real' style='text-align:right'>"+real+" "+unit+"</td><td class='"+cls+"' style='text-align:right'>"+sign+fmt(rN-eN)+" "+unit+"</td></tr>";
+  }).join("");
+  const ci=[{label:"Main d'œuvre",est:E.cMo,real:P.sal,c:"#4A7CF7"},{label:"Carburant",est:E.cCarb,real:P.carb,c:"#F39C12"},{label:"Marge",est:E.sur,real:P.marge,c:"#2ECC71"}];
+  const mx=Math.max(...ci.flatMap(i=>[Math.abs(i.est),Math.abs(i.real)]),1);
+  $("comp-bars").innerHTML=ci.map(item=>'<div style="margin-bottom:14px"><div style="font-size:11px;margin-bottom:5px">'+item.label+'</div><div style="margin-bottom:3px;display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:var(--blue);width:50px">Estimé</span><div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+Math.abs(item.est)/mx*100+'%;background:var(--blue);border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:10px;width:65px;text-align:right">'+fmt(item.est)+" CHF</span></div>"+'<div style="display:flex;align-items:center;gap:7px"><span style="font-size:9px;color:var(--orange);width:50px">Réel</span><div style="flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:'+Math.abs(item.real)/mx*100+'%;background:'+item.c+';border-radius:3px"></div></div><span style="font-family:var(--mono);font-size:10px;width:65px;text-align:right">'+fmt(item.real)+" CHF</span></div></div>").join("");
+  const an=[];
+  if(P.km!==E.km)an.push('<span style="color:var(--text)">📍 Distance :</span> '+(P.km>E.km?"+"+(P.km-E.km)+" km de plus":(E.km-P.km)+" km de moins")+" que prévu.");
+  if(P.sal>E.cMo*1.1)an.push('<span style="color:var(--red)">⚠ Salaires :</span> '+fmt(P.sal-E.cMo)+" CHF de plus — chantier plus long que prévu.");
+  if(P.sal<E.cMo*0.9)an.push('<span style="color:var(--green)">✓ Salaires :</span> Plus rapide que prévu, économisant '+fmt(E.cMo-P.sal)+" CHF.");
+  if(P.sup>0)an.push('<span style="color:var(--green)">✓ Suppléments :</span> '+fmt(P.sup)+" CHF facturés en plus.");
+  if(P.rab>0)an.push('<span style="color:var(--orange)">⚠ Rabais :</span> '+fmt(P.rab)+" CHF de remise accordée.");
+  an.push('<span style="color:var(--text)">💰 Marge réelle :</span> '+fmt(P.marge)+" CHF "+(pos?"(+"+fmt(delta)+" vs estimation)":"(-"+fmt(Math.abs(delta))+" vs estimation).")+".");
+  if(P.h>0)an.push('<span style="color:var(--text)">⏱ Revenu horaire :</span> '+fmt(revH)+" CHF/h de marge.");
+  $("comp-anal").innerHTML=an.map(a=>"<div>"+a+"</div>").join("");
 }
 
-function loadChantier(nom) {
-  const c=chantiers.find(x=>x.nom===nom);
-  if(!c) return;
-  $('chantier-nom').value=c.nom;
-  currentData=c;
-  // Restaurer km
-  if(c.est.km) $('inp-km').value=c.est.km;
-  if(c.post.heures) { $('r-heures').value=c.post.heures; $('r-nb').value=c.post.nb||2; $('r-cout-h').value=c.post.coutH||40; $('r-litres').value=c.post.litres||0; $('r-prix-c').value=c.post.prixC||2; $('r-loc').value=c.post.loc||0; $('r-etages').value=c.post.etages||0; $('r-volume').value=c.post.volume||0; $('r-manut').value=c.post.manut||0; $('r-autres').value=c.post.autres||0; $('r-rabais').value=c.post.rabais||0; $('r-km').value=c.post.kmR||0; }
-  calcEst(); calcPost(); updateBadges();
-  showPage('estimation');
+function getHist(){try{return JSON.parse(localStorage.getItem("hilario_ch"))||[];}catch{return[];}}
+function setHist(h){localStorage.setItem("hilario_ch",JSON.stringify(h));}
+
+function saveEst(){
+  if(!EST){alert("Complète l'estimation d'abord.");return;}
+  calc();
+  const h=getHist();
+  h.unshift({id:Date.now(),date:new Date().toLocaleDateString("fr-CH"),nom:EST.nom,km:EST.km,recHT:EST.rec,ttc:EST.ttc,sur:EST.sur,est:{...EST},post:null});
+  setHist(h);alert("✓ "+EST.nom+" sauvegardé !");
 }
 
-function deleteChantier(nom,e) {
-  e.stopPropagation();
-  if(!confirm('Supprimer "'+nom+'" ?')) return;
-  chantiers=chantiers.filter(c=>c.nom!==nom);
-  localStorage.setItem('hilario-chantiers',JSON.stringify(chantiers));
-  $('badge-hist').textContent=chantiers.length;
-  $('hist-count').textContent=chantiers.length;
-  renderHistory();
+function savePost(){
+  if(!POST||!EST){alert("Complète d'abord l'estimation et le post-chantier.");return;}
+  const h=getHist(),found=h.find(x=>x.nom===EST.nom);
+  if(found){found.post={...POST};found.margeR=POST.marge;}
+  else h.unshift({id:Date.now(),date:new Date().toLocaleDateString("fr-CH"),nom:EST.nom,km:POST.km,recHT:POST.recHT,ttc:POST.recTTC,sur:EST.sur,margeR:POST.marge,est:{...EST},post:{...POST}});
+  setHist(h);alert("✓ Post-chantier sauvegardé !");
 }
 
-function newChantier() {
-  $('chantier-nom').value='';
-  currentData={est:{},post:{}};
-  $('inp-km').value=100;
-  calcEst(); updateBadges(); showPage('estimation');
+function buildHist(){
+  const h=getHist();$("h-count").textContent=h.length+" chantier(s) sauvegardé(s)";
+  if(h.length===0){$("hlist").innerHTML='<div class="empty"><div class="empty-icon">📁</div><div class="empty-title">Aucun chantier sauvegardé</div><div class="empty-sub">Sauvegarde depuis l\'onglet Estimation.</div></div>';return;}
+  $("hlist").innerHTML=h.map(item=>{
+    const hasP=item.post!=null,m=hasP?item.margeR:item.sur,mc=m>=0?"var(--green)":"var(--red)";
+    const tag=hasP?'<span class="sbadge sg"><div class="sdot2"></div>Complet</span>':'<span class="sbadge so"><div class="sdot2"></div>Estimation</span>';
+    return'<div class="hitem" onclick="loadItem('+item.id+')"><div class="hleft"><div class="hname">'+item.nom+'</div><div class="hmeta">'+item.date+" · "+item.km+" km · "+fmt(item.recHT)+' CHF HT</div></div><div class="hright">'+tag+'<div class="hbadge" style="color:'+mc+'">'+fmt(m)+' CHF</div><span style="color:var(--muted);font-size:14px">›</span></div></div>';
+  }).join("");
 }
 
-function renderHistory() {
-  $('badge-hist').textContent=chantiers.length;
-  $('hist-count').textContent=chantiers.length;
-  if(chantiers.length===0){
-    $('history-list').innerHTML='<div class="empty-state">Aucun chantier sauvegardé.<br>Commence par remplir l\'estimation et clique sur "Sauvegarder".</div>';
-    return;
+function loadItem(id){
+  const h=getHist(),item=h.find(x=>x.id===id);if(!item)return;
+  $("chantier-nom").value=item.nom;$("inp-km").value=item.est.km;
+  if(item.est.tarif)$("p-tarif").value=item.est.tarif;
+  if(item.est.nb)$("p-nb").value=item.est.nb;
+  if(item.est.cout)$("p-cout").value=item.est.cout;
+  calc();
+  if(item.post){
+    $("r-h").value=item.post.h;$("r-l").value=item.post.litres;$("r-km").value=item.post.km;
+    $("r-pc").value=item.post.pc;$("r-sup").value=item.post.sup;$("r-rab").value=item.post.rab;
+    $("r-loc").value=item.post.loc;$("r-nb").value=item.post.nb;calcPost();
   }
-  $('history-list').innerHTML=chantiers.map(c=>`
-    <div class="history-item ${c.complete?'complete':'draft'}" onclick="loadChantier('${c.nom.replace(/'/g,"\\'")}')">
-      <div class="hi-left">
-        <div class="hi-name">${c.nom}</div>
-        <div class="hi-meta">${new Date(c.date).toLocaleDateString('fr-CH')} · ${c.est.km||0} km estimés${c.post.heures?` · ${c.post.heures}h réelles`:''}</div>
-      </div>
-      <div class="hi-right">
-        <span class="hi-surplus" style="color:${c.complete?(c.post.benefR>=0?'var(--green)':'var(--red)'):'var(--muted)'}">
-          ${c.complete?((c.post.benefR>=0?'+':'')+fmt(c.post.benefR)+' CHF'):'En cours...'}
-        </span>
-        <span class="hi-badge" style="background:${c.complete?'rgba(46,204,113,.15)':'rgba(243,156,18,.15)'};color:${c.complete?'var(--green)':'var(--orange)'}">
-          ${c.complete?'Terminé':'Brouillon'}
-        </span>
-        <button class="btn btn-danger btn-sm" onclick="deleteChantier('${c.nom.replace(/'/g,"\\'")}',event)">✕</button>
-      </div>
-    </div>`).join('');
+  switchTab("estimation");
 }
 
-function openModal() { $('overlay').classList.add('open'); }
-function closeModal() { $('overlay').classList.remove('open'); }
-function closeModalOut(e) { if(e.target===$('overlay')) closeModal(); }
-function resetParams() { $('inp-km').value=100; $('p-tarif').value=2.20; $('p-nb').value=2; $('p-cout').value=40; $('p-vit').value=85; $('p-conso').value=10; $('p-prix-c').value=2.00; $('p-cam').value=16400; $('p-amort').value=3; $('p-km-an').value=50000; $('p-assur').value=3000; $('p-vign').value=40; $('p-entr').value=1500; $('p-loc').value=0; $('p-rc').value=355; $('p-tel').value=35; calcEst(); }
-
-// Init
-renderHistory();
-calcEst();
+function clearHist(){if(!confirm("Effacer tout l'historique ?"))return;localStorage.removeItem("hilario_ch");buildHist();}
+function openModal(){$("overlay").classList.add("open");}
+function closeModal(){$("overlay").classList.remove("open");}
+function closeOut(e){if(e.target===$("overlay"))closeModal();}
+calc();
 </script>
 </body>
 </html>
