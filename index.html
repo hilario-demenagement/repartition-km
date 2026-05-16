@@ -5,6 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Répartition km — Hilario Déménagement</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>
+const MOT_DE_PASSE = "izarra";
+(function(){
+  if(sessionStorage.getItem("hd_auth")==="ok") return;
+  document.addEventListener("DOMContentLoaded",function(){
+    const lock=document.getElementById("lock-screen");
+    if(lock){lock.style.display="flex";}
+    const app=document.getElementById("app-root");
+    if(app){app.style.display="none";}
+  });
+})();
+function tryLogin(){
+  const val=document.getElementById("pwd-input").value;
+  if(val===MOT_DE_PASSE){
+    sessionStorage.setItem("hd_auth","ok");
+    document.getElementById("lock-screen").style.display="none";
+    document.getElementById("app-root").style.display="block";
+  } else {
+    document.getElementById("pwd-err").style.display="block";
+    document.getElementById("pwd-input").value="";
+    document.getElementById("pwd-input").focus();
+    setTimeout(()=>document.getElementById("pwd-err").style.display="none",2500);
+  }
+}
+function pwdKey(e){if(e.key==="Enter")tryLogin();}
+</script>
+<style>
+#lock-screen{position:fixed;inset:0;background:#0F0F0F;display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;}
+.lcard{background:#161616;border:1px solid #2A2A2A;border-radius:16px;padding:40px 36px;width:320px;display:flex;flex-direction:column;align-items:center;gap:18px;}
+.lic{width:52px;height:52px;background:#E8D5A3;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.ltitle{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:500;color:#F0EEE8;text-align:center;}
+.lsub{font-family:'DM Sans',sans-serif;font-size:11px;color:#666;text-align:center;margin-top:-8px;}
+#pwd-input{width:100%;background:#0F0F0F;border:1px solid #2A2A2A;border-radius:9px;padding:12px 16px;font-family:'DM Mono',monospace;font-size:16px;color:#E8D5A3;outline:none;text-align:center;letter-spacing:.2em;transition:border-color .15s;}
+#pwd-input:focus{border-color:#E8D5A3;}
+.lbtn{width:100%;background:#E8D5A3;color:#0F0F0F;border:none;border-radius:9px;padding:13px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s;}
+.lbtn:hover{opacity:.85;}
+#pwd-err{font-family:'DM Sans',sans-serif;font-size:12px;color:#E74C3C;display:none;text-align:center;}
+</style>
 <style>
 :root{--bg:#0F0F0F;--surface:#161616;--border:#2A2A2A;--border-hi:#3A3A3A;--text:#F0EEE8;--muted:#666;--accent:#E8D5A3;--blue:#4A7CF7;--green:#2ECC71;--orange:#F39C12;--red:#E74C3C;--purple:#9B59B6;--radius:12px;--mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -127,6 +165,18 @@ main{padding:24px 28px;max-width:1100px;margin:0 auto;}
 </style>
 </head>
 <body>
+ 
+<div id="lock-screen" style="display:none">
+  <div class="lcard">
+    <div class="lic">🔒</div>
+    <div class="ltitle">Hilario Déménagement</div>
+    <div class="lsub">Accès protégé — entrez le mot de passe</div>
+    <input id="pwd-input" type="password" placeholder="••••••••••" onkeydown="pwdKey(event)" autofocus>
+    <div id="pwd-err">Mot de passe incorrect</div>
+    <button class="lbtn" onclick="tryLogin()">Accéder →</button>
+  </div>
+</div>
+<div id="app-root">
 <header>
   <div class="logo">
     <div class="logo-icon">🚛</div>
@@ -523,5 +573,6 @@ function closeModal(){$("overlay").classList.remove("open");}
 function closeOut(e){if(e.target===$("overlay"))closeModal();}
 calc();
 </script>
+</div>
 </body>
 </html>
